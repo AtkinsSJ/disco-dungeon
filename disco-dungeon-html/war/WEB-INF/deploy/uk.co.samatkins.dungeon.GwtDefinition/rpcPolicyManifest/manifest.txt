@@ -1,0 +1,2 @@
+# Module uk.co.samatkins.dungeon.GwtDefinition
+# RPC service class, partial path of RPC policy file

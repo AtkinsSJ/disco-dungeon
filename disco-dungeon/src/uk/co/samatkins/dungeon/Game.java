@@ -1,5 +1,10 @@
 package uk.co.samatkins.dungeon;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import uk.co.samatkins.dungeon.data.EnemyData;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -9,6 +14,8 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
+import com.google.gson.*;
 
 public class Game implements ApplicationListener {
 	private OrthographicCamera camera;
@@ -33,6 +40,21 @@ public class Game implements ApplicationListener {
 		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
 		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		
+		Gson gson = new Gson();
+		try {
+			EnemyData[] enemyData = gson.fromJson(Gdx.files.internal("cyberpunk/enemies.json").reader(), EnemyData[].class);
+			for (EnemyData enemy : enemyData) {
+				System.out.println(enemy);
+			}
+		} catch (JsonSyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonIOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
