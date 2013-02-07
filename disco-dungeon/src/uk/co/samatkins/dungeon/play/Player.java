@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import uk.co.samatkins.Entity;
 
-public class Player extends Entity {
+public class Player extends DungeonEntity {
 	
-	public Player() {
-		super("player");
+	public Player(int x, int y) {
+		super(x, y, "player");
 		
 		this.sprite = new Sprite(new Texture(Gdx.files.internal("cyberpunk/tiles.png")), 0, 0, 16, 16);
 	}
@@ -18,10 +18,10 @@ public class Player extends Entity {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		x = Gdx.input.getX();
-		y = Gdx.graphics.getHeight() - Gdx.input.getY();
-		
-		this.visible = !Gdx.input.isButtonPressed(Buttons.LEFT);
+//		x = Gdx.input.getX();
+//		y = Gdx.graphics.getHeight() - Gdx.input.getY();
+//		
+//		this.visible = !Gdx.input.isButtonPressed(Buttons.LEFT);
 	}
 
 }

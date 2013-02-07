@@ -6,7 +6,7 @@ public class PlayWorld extends World {
 
 	public PlayWorld() {
 		super();
-		this.add(new Player());
+		this.add(new Player(3, 3));
 		this.add(new Dungeon(15, 10));
 	}
 	
