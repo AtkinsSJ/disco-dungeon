@@ -17,32 +17,15 @@ public class Entity extends Actor {
 	protected Sprite sprite;
 
 	public Entity() {
-		init();
-	}
 
-	public Entity(String name) {
-		super(name);
-		init();
-	}
-	
-	private void init() {
-		
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		if (this.visible && (sprite != null)) {
-			sprite.setPosition(x, y);
+		if (this.isVisible() && (sprite != null)) {
+			sprite.setPosition(this.getX(), this.getY());
 			sprite.draw(batch, parentAlpha);
 		}
-	}
-
-	@Override
-	public Actor hit(float x, float y) {
-		if (this.touchable && sprite.getBoundingRectangle().contains(x, y)) {
-			return this;
-		}
-		return null;
 	}
 
 }

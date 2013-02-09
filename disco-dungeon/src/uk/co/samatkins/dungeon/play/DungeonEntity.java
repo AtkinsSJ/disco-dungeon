@@ -9,18 +9,14 @@ public class DungeonEntity extends Entity {
 	protected int tileX, tileY;
 
 	public DungeonEntity(int x, int y) {
-		this.init(x, y);
-	}
-
-	public DungeonEntity(int x, int y, String name) {
-		super(name);
+		super();
 		this.init(x, y);
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		if (this.visible && (this.sprite != null)) {
-			this.sprite.setPosition(x*Dungeon.TILE_WIDTH, y*Dungeon.TILE_HEIGHT);
+		if (this.isVisible() && (this.sprite != null)) {
+			this.sprite.setPosition(this.tileX * Dungeon.TILE_WIDTH, this.tileY * Dungeon.TILE_HEIGHT);
 			this.sprite.draw(batch, parentAlpha);
 		}
 	}
@@ -41,12 +37,12 @@ public class DungeonEntity extends Entity {
 	}
 	
 	public boolean moveUp() {
-		this.tileY--;
+		this.tileY++;
 		return true;
 	}
 	
 	public boolean moveDown() {
-		this.tileY++;
+		this.tileY--;
 		return true;
 	}
 

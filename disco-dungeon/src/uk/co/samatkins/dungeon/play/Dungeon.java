@@ -12,7 +12,7 @@ public class Dungeon extends Entity {
 	public static final int TILE_HEIGHT = 16;
 
 	public Dungeon(int width, int height) {
-		super("dungeon");
+		super();
 		
 		sprite = new Tilemap(new Texture(Gdx.files.internal("cyberpunk/tiles.png")), TILE_WIDTH, TILE_HEIGHT, width, height);
 	}
