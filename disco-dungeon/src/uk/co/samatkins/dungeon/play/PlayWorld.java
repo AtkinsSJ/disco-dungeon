@@ -9,7 +9,7 @@ public class PlayWorld extends World {
 	public PlayWorld() {
 		super();
 		//this.add(new Dungeon(15, 10));
-		Player p = new Player(3, 3);
+		Player p = new Player(this, 3, 3);
 		this.add(p);
 		this.setKeyboardFocus(p);
 		this.playersTurn = true;
@@ -24,7 +24,6 @@ public class PlayWorld extends World {
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		System.out.println("Test " + keycode);
 		if (this.playersTurn) {
 			return super.keyDown(keycode);
 		}

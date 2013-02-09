@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Player extends DungeonEntity {
 	
-	public Player(int x, int y) {
-		super(x, y);
+	public Player(PlayWorld world, int x, int y) {
+		super(world, x, y);
 		
 		this.sprite = new Sprite(new Texture(Gdx.files.internal("cyberpunk/tiles.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
 		
