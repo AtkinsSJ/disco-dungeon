@@ -17,6 +17,9 @@ public class DungeonEntity extends Entity {
 		this.world = world;
 		this.tileX = x;
 		this.tileY = y;
+		
+		this.setX(this.tileX * Dungeon.TILE_WIDTH);
+		this.setY(this.tileY * Dungeon.TILE_HEIGHT);
 	}
 	
 	@Override
@@ -30,7 +33,7 @@ public class DungeonEntity extends Entity {
 	private boolean moveBy(final int across, final int up) {
 		this.addAction(
 			Actions.sequence(
-				Actions.moveBy(across * Dungeon.TILE_WIDTH, up * Dungeon.TILE_HEIGHT, 0.5f),
+				Actions.moveBy(across * Dungeon.TILE_WIDTH, up * Dungeon.TILE_HEIGHT, 0.2f),
 				new Action() { public boolean act(float delta) {
 					((DungeonEntity)actor).tileX += across;
 					((DungeonEntity)actor).tileY += up;

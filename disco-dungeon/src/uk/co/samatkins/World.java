@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class World extends Stage implements Screen {
+public abstract class World extends Stage implements Screen {
 	
 	public World() {
 		//float zoom = 0.5f;
@@ -24,9 +24,11 @@ public class World extends Stage implements Screen {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		this.act(delta);
+		this.update(delta);
 		this.draw();
 	}
+
+	abstract public void update(float delta);
 
 	@Override
 	public void resize(int width, int height) {
