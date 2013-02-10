@@ -52,6 +52,34 @@ public class Tilemap extends Sprite {
 		}
 	}
 	
+	public void setTile(int x, int y, int tileIndex) {
+		if (x >= 0 && x < this.tilesAcross && y >= 0 && y < this.tilesDown) {
+			this.tiles[x][y] = tileIndex;
+		}
+	}
+	
+	public void setTileRect(int x1, int x2, int y1, int y2, int tileIndex) {
+		for (int x=x1; x<=x2; x++) {
+			for (int y=y1; y<=y2; y++) {
+				this.setTile(x, y, tileIndex);
+			}
+		}
+	}
+	
+	public void setSolid(int x, int y, boolean solid) {
+		if (x >= 0 && x < this.tilesAcross && y >= 0 && y < this.tilesDown) {
+			this.solidTiles[x][y] = solid;
+		}
+	}
+
+	public void setSolidRect(int x1, int x2, int y1, int y2, boolean solid) {
+		for (int x=x1; x<=x2; x++) {
+			for (int y=y1; y<=y2; y++) {
+				this.setSolid(x, y, solid);
+			}
+		}
+	}
+	
 	@Override
 	public void draw(SpriteBatch spriteBatch) {
 		this.draw(spriteBatch, 1.0f);

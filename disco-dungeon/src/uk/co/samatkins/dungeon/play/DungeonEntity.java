@@ -8,13 +8,13 @@ import uk.co.samatkins.Entity;
 
 public class DungeonEntity extends Entity {
 	
-	protected PlayWorld world;
+	protected Dungeon dungeon;
 	protected int tileX, tileY;
 
-	public DungeonEntity(PlayWorld world, int x, int y) {
+	public DungeonEntity(Dungeon dungeon, int x, int y) {
 		super();
 		
-		this.world = world;
+		this.dungeon = dungeon;
 		this.tileX = x;
 		this.tileY = y;
 		

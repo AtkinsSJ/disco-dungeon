@@ -9,10 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Player extends DungeonEntity {
 	
-	public Player(PlayWorld world, int x, int y) {
-		super(world, x, y);
+	public Player(Dungeon dungeon, int x, int y) {
+		super(dungeon, x, y);
 		
-		this.sprite = new Sprite(new Texture(Gdx.files.internal("cyberpunk/tiles.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
+		this.sprite = new Sprite(new Texture(Gdx.files.internal("cyberpunk/entities.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
 		
 		this.addListener(new InputListener() {
 			public boolean keyDown(InputEvent event, int keycode) {

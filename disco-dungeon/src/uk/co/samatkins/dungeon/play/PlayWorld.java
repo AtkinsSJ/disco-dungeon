@@ -7,12 +7,14 @@ import uk.co.samatkins.World;
 public class PlayWorld extends World {
 	
 	private boolean playersTurn;
+	private Dungeon dungeon;
 	private Player player;
 
 	public PlayWorld() {
 		super();
-		this.add(new Dungeon(15, 10));
-		player = new Player(this, 3, 3);
+		this.dungeon = new Dungeon(15, 10);
+		this.add(this.dungeon);
+		this.player = new Player(this.dungeon, 3, 3);
 		this.add(player);
 		this.setKeyboardFocus(player);
 		this.playersTurn = true;
