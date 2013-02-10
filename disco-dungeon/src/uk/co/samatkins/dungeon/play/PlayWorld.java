@@ -12,7 +12,7 @@ public class PlayWorld extends World {
 
 	public PlayWorld() {
 		super();
-		this.dungeon = new Dungeon(15, 10);
+		this.dungeon = new Dungeon(100, 100);
 		this.add(this.dungeon);
 		this.player = new Player(this.dungeon, 3, 3);
 		this.add(player);

@@ -91,9 +91,13 @@ public class Tilemap extends Sprite {
 		
 		for (int ty=0; ty < this.tilesDown; ty++) {
 			for (int tx=0; tx < this.tilesAcross; tx++) {
-				spriteBatch.draw(this.textureRegions[(this.tiles[tx][ty])],
-						this.getX() + (tx * this.tileWidth),
-						this.getY() + (ty * this.tileHeight));
+				
+				// Negative tile indices can be used to store data. They are not drawn.
+				if (this.tiles[tx][ty] >= 0) {
+					spriteBatch.draw(this.textureRegions[(this.tiles[tx][ty])],
+							this.getX() + (tx * this.tileWidth),
+							this.getY() + (ty * this.tileHeight));
+				}
 			}
 		}
 	}
