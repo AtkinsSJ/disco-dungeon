@@ -58,6 +58,13 @@ public class Tilemap extends Sprite {
 		}
 	}
 	
+	public int getTile(int x, int y) {
+		if (x >= 0 && x < this.tilesAcross && y >= 0 && y < this.tilesDown) {
+			return this.tiles[x][y];
+		}
+		return -1;
+	}
+	
 	public void setTileRect(int x1, int x2, int y1, int y2, int tileIndex) {
 		for (int x=x1; x<=x2; x++) {
 			for (int y=y1; y<=y2; y++) {
@@ -70,6 +77,13 @@ public class Tilemap extends Sprite {
 		if (x >= 0 && x < this.tilesAcross && y >= 0 && y < this.tilesDown) {
 			this.solidTiles[x][y] = solid;
 		}
+	}
+	
+	public boolean getSolid(int x, int y) {
+		if (x >= 0 && x < this.tilesAcross && y >= 0 && y < this.tilesDown) {
+			return this.solidTiles[x][y];
+		}
+		return false;
 	}
 
 	public void setSolidRect(int x1, int x2, int y1, int y2, boolean solid) {
@@ -100,6 +114,14 @@ public class Tilemap extends Sprite {
 				}
 			}
 		}
+	}
+	
+	public int getTilesAcross() {
+		return this.tilesAcross;
+	}
+	
+	public int getTilesDown() {
+		return this.tilesDown;
 	}
 	
 
