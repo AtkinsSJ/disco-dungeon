@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Player extends DungeonEntity {
 	
-	public Player(Dungeon dungeon, int x, int y) {
+	public Player(final Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
 		
 		this.sprite = new Sprite(new Texture(Gdx.files.internal("cyberpunk/entities.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
@@ -29,6 +29,8 @@ public class Player extends DungeonEntity {
 				} else if (keycode == Keys.DOWN) {
 					moveDown();
 					return true;
+				} else if (keycode == Keys.SPACE) {
+					dungeon.buildDungeon("cyberpunk/Zabutom_-_Zeta_force_level_2.mp3");
 				}
 				
 				return false;

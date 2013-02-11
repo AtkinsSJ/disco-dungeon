@@ -40,6 +40,12 @@ public class Tilemap extends Sprite {
 		this.generateTextureRegions();
 	}
 	
+	public void clear() {
+		this.solidTiles = new boolean[tilesAcross][tilesDown];
+		this.tiles = new int[tilesAcross][tilesDown];
+		this.setTileRect(0, tilesAcross-1, 0, tilesDown, -1);
+	}
+	
 	private void generateTextureRegions() {
 		int w = (int) Math.floor(this.getTexture().getWidth() / this.tileWidth);
 		
