@@ -1,9 +1,7 @@
 package uk.co.samatkins.dungeon.play;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import uk.co.samatkins.Entity;
+import uk.co.samatkins.FileRNG;
 import uk.co.samatkins.Tilemap;
 
 import com.badlogic.gdx.Gdx;
@@ -15,8 +13,6 @@ public class Dungeon extends Entity {
 	public static final int TILE_HEIGHT = 16;
 	
 	private Tilemap tilemap;
-	
-	private InputStream is;
 
 	public Dungeon(int width, int height) {
 		super();
@@ -28,13 +24,14 @@ public class Dungeon extends Entity {
 	}
 	
 	private void buildDungeon(String filename) {
-		is = Gdx.files.internal(filename).read();
+		FileRNG random = new FileRNG(Gdx.files.internal(filename).read());
+
 		int x1, y1;
 		
 		for (int i=0; i<100; i++) {
-			x1 = this.getShortFromFile() % (this.tilemap.getTilesAcross() - 20);
-			y1 = this.getShortFromFile() % (this.tilemap.getTilesDown() - 20);
-			this.buildRoom(x1, x1 + 3 + this.getShortFromFile() % 10, y1, y1 + 3 + this.getShortFromFile() % 10);
+			x1 = random.getIntBetween(0, this.tilemap.getTilesAcross() - 20);
+			y1 = random.getIntBetween(0, this.tilemap.getTilesDown() - 20);
+			this.buildRoom(x1, x1 + random.getIntBetween(3, 10), y1, y1 + random.getIntBetween(3, 10));
 		}
 		
 		// Get wall tiles to figure-out how they should look
@@ -50,18 +47,6 @@ public class Dungeon extends Entity {
 				}
 			}
 		}
-	}
-	
-	private int getShortFromFile() {
-		int n;
-		try {
-			n = (is.read() << 8) + is.read();
-			return n;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
 	}
 	
 	private void placeWall(int x, int y) {
