@@ -18,6 +18,8 @@ public class Dungeon extends Entity {
 	private Tilemap tilemap;
 	
 	private FileRNG random;
+	
+	private Room startRoom;
 
 	public Dungeon(int width, int height) {
 		super();
@@ -34,7 +36,7 @@ public class Dungeon extends Entity {
 		random = new FileRNG(Gdx.files.internal(filename).read());
 		
 		// Create starting lists
-		int gridSize = 4,
+		int gridSize = 6,
 			gridCount = gridSize * gridSize;
 		int[] graph = new int[gridCount];
 			// graph[node] will contain its connections OR'd together 1=up, 2=right, 4=down, 8=left
@@ -128,6 +130,8 @@ public class Dungeon extends Entity {
 			}
 		}
 		
+		this.startRoom = rooms[start];
+		
 		// For each room, connect it!
 		for (int i=0; i<gridCount; i++) {
 			// Only construct corridors right and down, so as to avoid duplicates
@@ -220,8 +224,8 @@ public class Dungeon extends Entity {
 	}
 	
 	private void connectRooms(Room a, Room b) {
-		// Start in middle of room a
 		
+		// Decide whether to go h or v first.
 		if (random.getBoolean()) {
 			this.buildHorizontalCorridor(a.getRight()-1, b.getCentreX(), a.getCentreY());
 			this.buildVerticalCorridor(b.getCentreX(), a.getCentreY(), b.getBottom()+1);
@@ -242,6 +246,14 @@ public class Dungeon extends Entity {
 			this.placeWall(a.getCentreX()-1, b.getCentreY() + 1);
 		}
 		
+	}
+	
+	/**
+	 * Get the room the player will start in
+	 * @return
+	 */
+	public Room getStartRoom() {
+		return this.startRoom;
 	}
 
 }
