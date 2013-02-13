@@ -33,5 +33,20 @@ public class FileRNG {
 		}
 		return 0;
 	}
+	
+	/**
+	 * Reads a byte from the file, and returns a boolean
+	 * @return
+	 */
+	public boolean getBoolean() {
+		try {
+			int input = this.file.read();
+			return (input % 2) == 1;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 }
