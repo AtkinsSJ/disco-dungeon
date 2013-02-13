@@ -31,6 +31,11 @@ public class DungeonEntity extends Entity {
 	}
 	
 	private boolean moveBy(final int across, final int up) {
+		
+		if (dungeon.isTileSolid(this.tileX + across, this.tileY + up)) {
+			return false;
+		}
+		
 		this.addAction(
 			Actions.sequence(
 				Actions.moveBy(across * Dungeon.TILE_WIDTH, up * Dungeon.TILE_HEIGHT, 0.2f),

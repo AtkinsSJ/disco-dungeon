@@ -160,6 +160,10 @@ public class Dungeon extends Entity {
 		}
 	}
 	
+	public boolean isTileSolid(int x, int y) {
+		return this.tilemap.getSolid(x, y);
+	}
+	
 	private void placeWall(int x, int y) {
 		if (tilemap.getTile(x, y) < 0) { // Only place if there's no existing tile
 			tilemap.setTile(x, y, 0);
