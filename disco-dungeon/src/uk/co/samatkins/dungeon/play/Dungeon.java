@@ -120,8 +120,8 @@ public class Dungeon extends Entity {
 			for (int y=0; y<gridSize; y++) {
 				l = (x * chunkWidth) + random.getIntBetween(0, chunkWidth/2);
 				t = (y * chunkHeight) + random.getIntBetween(0, chunkHeight/2);
-				w = random.getIntBetween(3, chunkWidth-(l % chunkWidth));
-				h = random.getIntBetween(3, chunkHeight-(t % chunkHeight));
+				w = random.getIntBetween(5, chunkWidth-(l % chunkWidth)-1);
+				h = random.getIntBetween(5, chunkHeight-(t % chunkHeight)-1);
 				
 				rooms[x + (y*gridSize)] = new Room(l, t, w, h);
 				this.buildRoom(l, t, w, h);
@@ -140,15 +140,7 @@ public class Dungeon extends Entity {
 				this.connectRooms(rooms[i], rooms[i+gridSize]);
 			}
 		}
-		
-//		int x1, y1;
-//		
-//		for (int i=0; i<100; i++) {
-//			x1 = random.getIntBetween(0, this.tilemap.getTilesAcross() - 20);
-//			y1 = random.getIntBetween(0, this.tilemap.getTilesDown() - 20);
-//			this.buildRoom(x1, x1 + random.getIntBetween(3, 10), y1, y1 + random.getIntBetween(3, 10));
-//		}
-//		
+
 		// Get wall tiles to figure-out how they should look
 		for (int x=0; x<this.tilemap.getTilesAcross(); x++) {
 			for (int y=0; y<this.tilemap.getTilesDown(); y++) {
