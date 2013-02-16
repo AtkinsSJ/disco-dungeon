@@ -36,8 +36,6 @@ public class Dungeon extends Entity {
 		
 		sprite = tilemap = new Tilemap(new Texture(Gdx.files.internal("neon/tiles.png")), TILE_WIDTH, TILE_HEIGHT, width, height);
 		tilemap.setTileRect(0, width-1, 0, height-1, -1); // Set all to void
-		
-		this.buildDungeon("neon/Zabutom_-_Zeta_force_level_2.mp3");
 	}
 	
 	public void buildDungeon(String filename) {
@@ -175,6 +173,7 @@ public class Dungeon extends Entity {
 		
 		DungeonEntity e = new Enemy(this, this.player.tileX+1, this.player.tileY+1);
 		this.entities.add(e);
+		this.world.add(e);
 	}
 	
 	public boolean isTileSolid(int x, int y) {
@@ -283,6 +282,10 @@ public class Dungeon extends Entity {
 
 	public void endPlayerTurn() {
 		this.isPlayersTurn = false;
+		if (this.entities.size() > 0) {
+			this.currentEntity = this.entities.get(0);
+			this.currentEntityIndex = 0;
+		}
 	}
 	
 	@Override
@@ -295,15 +298,16 @@ public class Dungeon extends Entity {
 		}
 		
 		// Is current entity animating?
-		if ( (this.currentEntity != null) && this.currentEntity.isAnimating()) {
+		if ( this.player.isAnimating() || (this.currentEntity == null) || this.currentEntity.isAnimating()) {
 			return;
 		}
+		
+		this.currentEntity.takeTurn();
 		
 		// Are there entities waiting to move?
 		if (this.currentEntityIndex != this.entities.size()-1) {
 			this.currentEntityIndex++;
 			this.currentEntity = this.entities.get(this.currentEntityIndex);
-			this.currentEntity.takeTurn();
 		} else {
 			System.out.println("All entities have moved");
 			this.isPlayersTurn = true;

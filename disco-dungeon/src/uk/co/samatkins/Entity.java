@@ -14,10 +14,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class Entity extends Actor {
 	
+	protected World world;
 	protected Sprite sprite;
 
 	public Entity() {
 
+	}
+	
+	public void setWorld(World world) {
+		this.world = world;
 	}
 
 	@Override

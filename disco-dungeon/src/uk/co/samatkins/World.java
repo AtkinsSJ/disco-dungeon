@@ -17,6 +17,7 @@ public abstract class World extends Stage implements Screen {
 	
 	public void add(Entity entity) {
 		this.addActor(entity);
+		entity.setWorld(this);
 	}
 
 	@Override

@@ -15,6 +15,7 @@ public class Enemy extends DungeonEntity {
 	@Override
 	public void takeTurn() {
 		System.out.println("Enemy took a turn!");
+		this.moveLeft();
 	}
 
 }

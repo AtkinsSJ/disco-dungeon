@@ -15,6 +15,8 @@ public class PlayWorld extends World {
 		this.dungeon = new Dungeon(100, 100);
 		this.add(this.dungeon);
 		
+		this.dungeon.buildDungeon("neon/Zabutom_-_Zeta_force_level_2.mp3");
+		
 		this.player = this.dungeon.player;
 		this.add(player);
 		this.setKeyboardFocus(player);
