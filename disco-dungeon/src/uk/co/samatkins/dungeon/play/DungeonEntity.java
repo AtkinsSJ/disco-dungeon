@@ -10,6 +10,8 @@ public class DungeonEntity extends Entity {
 	
 	protected Dungeon dungeon;
 	protected int tileX, tileY;
+	
+	protected boolean animating;
 
 	public DungeonEntity(Dungeon dungeon, int x, int y) {
 		super();
@@ -20,6 +22,8 @@ public class DungeonEntity extends Entity {
 		
 		this.setX(this.tileX * Dungeon.TILE_WIDTH);
 		this.setY(this.tileY * Dungeon.TILE_HEIGHT);
+		
+		this.animating = false;
 	}
 	
 	@Override
@@ -36,12 +40,15 @@ public class DungeonEntity extends Entity {
 			return false;
 		}
 		
+		this.animating = true;
+		
 		this.addAction(
 			Actions.sequence(
 				Actions.moveBy(across * Dungeon.TILE_WIDTH, up * Dungeon.TILE_HEIGHT, 0.2f),
 				new Action() { public boolean act(float delta) {
 					((DungeonEntity)actor).tileX += across;
 					((DungeonEntity)actor).tileY += up;
+					((DungeonEntity)actor).animating = false;
 					return true;
 				}}
 			)
@@ -65,5 +72,11 @@ public class DungeonEntity extends Entity {
 	public boolean moveDown() {
 		return moveBy(0, -1);
 	}
+	
+	public boolean isAnimating() {
+		return this.animating;
+	}
+	
+	public void takeTurn() { }
 
 }

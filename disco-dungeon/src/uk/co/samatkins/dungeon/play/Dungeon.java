@@ -1,6 +1,7 @@
 package uk.co.samatkins.dungeon.play;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import uk.co.samatkins.Entity;
 import uk.co.samatkins.FileRNG;
@@ -20,9 +21,18 @@ public class Dungeon extends Entity {
 	private FileRNG random;
 	
 	private Room startRoom;
+	
+	public Player player;
+	private boolean isPlayersTurn;
+	
+	private List<DungeonEntity> entities;
+	private DungeonEntity currentEntity;
+	private int currentEntityIndex = 0;
 
 	public Dungeon(int width, int height) {
 		super();
+		
+		this.isPlayersTurn = true;
 		
 		sprite = tilemap = new Tilemap(new Texture(Gdx.files.internal("neon/tiles.png")), TILE_WIDTH, TILE_HEIGHT, width, height);
 		tilemap.setTileRect(0, width-1, 0, height-1, -1); // Set all to void
@@ -32,6 +42,7 @@ public class Dungeon extends Entity {
 	
 	public void buildDungeon(String filename) {
 		tilemap.clear();
+		entities = new ArrayList<DungeonEntity>();
 		
 		random = new FileRNG(Gdx.files.internal(filename).read());
 		
@@ -158,6 +169,12 @@ public class Dungeon extends Entity {
 				}
 			}
 		}
+		
+		// Generate player
+		this.player = new Player(this, this.startRoom.getCentreX(), this.startRoom.getCentreY());
+		
+		DungeonEntity e = new Enemy(this, this.player.tileX+1, this.player.tileY+1);
+		this.entities.add(e);
 	}
 	
 	public boolean isTileSolid(int x, int y) {
@@ -258,6 +275,39 @@ public class Dungeon extends Entity {
 	 */
 	public Room getStartRoom() {
 		return this.startRoom;
+	}
+
+	public boolean isPlayersTurn() {
+		return this.isPlayersTurn;
+	}
+
+	public void endPlayerTurn() {
+		this.isPlayersTurn = false;
+	}
+	
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		
+		// Is it the player's turn?
+		if (this.isPlayersTurn) {
+			return;
+		}
+		
+		// Is current entity animating?
+		if ( (this.currentEntity != null) && this.currentEntity.isAnimating()) {
+			return;
+		}
+		
+		// Are there entities waiting to move?
+		if (this.currentEntityIndex != this.entities.size()-1) {
+			this.currentEntityIndex++;
+			this.currentEntity = this.entities.get(this.currentEntityIndex);
+			this.currentEntity.takeTurn();
+		} else {
+			System.out.println("All entities have moved");
+			this.isPlayersTurn = true;
+		}
 	}
 
 }

@@ -9,32 +9,37 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Player extends DungeonEntity {
 	
-	private PlayWorld world;
-	
-	public Player(final PlayWorld world, final Dungeon dungeon, int x, int y) {
+	public Player(final Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
-		this.world = world;
 		
 		this.sprite = new Sprite(new Texture(Gdx.files.internal("neon/entities.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
 		
 		this.addListener(new InputListener() {
 			public boolean keyDown(InputEvent event, int keycode) {
+				
+				if (animating) { return false; }
+				
+				if (!dungeon.isPlayersTurn()) {
+					System.out.println("Not the player's turn!");
+					return false;
+				}
+				
 				System.out.println("Player received input " + keycode);
 				if (keycode == Keys.LEFT) {
 					moveLeft();
-					world.endPlayerTurn();
+					dungeon.endPlayerTurn();
 					return true;
 				} else if (keycode == Keys.RIGHT) {
 					moveRight();
-					world.endPlayerTurn();
+					dungeon.endPlayerTurn();
 					return true;
 				} else if (keycode == Keys.UP) {
 					moveUp();
-					world.endPlayerTurn();
+					dungeon.endPlayerTurn();
 					return true;
 				} else if (keycode == Keys.DOWN) {
 					moveDown();
-					world.endPlayerTurn();
+					dungeon.endPlayerTurn();
 					return true;
 				} else if (keycode == Keys.SPACE) { // TODO: Debug code, to be removed
 					dungeon.buildDungeon("neon/Zabutom_-_Zeta_force_level_2.mp3");

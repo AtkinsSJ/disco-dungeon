@@ -1,7 +1,8 @@
 [
 	{
-		"name": "rat",
+		"name": "ghost",
 		"tiles": [0,1],
 		"hp": 5
-	}
+	},
+	
 ]
