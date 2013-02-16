@@ -24,10 +24,10 @@ public class Dungeon extends Entity {
 	public Dungeon(int width, int height) {
 		super();
 		
-		sprite = tilemap = new Tilemap(new Texture(Gdx.files.internal("cyberpunk/tiles.png")), TILE_WIDTH, TILE_HEIGHT, width, height);
+		sprite = tilemap = new Tilemap(new Texture(Gdx.files.internal("neon/tiles.png")), TILE_WIDTH, TILE_HEIGHT, width, height);
 		tilemap.setTileRect(0, width-1, 0, height-1, -1); // Set all to void
 		
-		this.buildDungeon("cyberpunk/Zabutom_-_Zeta_force_level_2.mp3");
+		this.buildDungeon("neon/Zabutom_-_Zeta_force_level_2.mp3");
 	}
 	
 	public void buildDungeon(String filename) {

@@ -9,44 +9,51 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Player extends DungeonEntity {
 	
-	public Player(final Dungeon dungeon, int x, int y) {
+	private PlayWorld world;
+	
+	public Player(final PlayWorld world, final Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
+		this.world = world;
 		
-		this.sprite = new Sprite(new Texture(Gdx.files.internal("cyberpunk/entities.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
+		this.sprite = new Sprite(new Texture(Gdx.files.internal("neon/entities.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
 		
 		this.addListener(new InputListener() {
 			public boolean keyDown(InputEvent event, int keycode) {
 				System.out.println("Player received input " + keycode);
 				if (keycode == Keys.LEFT) {
 					moveLeft();
+					world.endPlayerTurn();
 					return true;
 				} else if (keycode == Keys.RIGHT) {
 					moveRight();
+					world.endPlayerTurn();
 					return true;
 				} else if (keycode == Keys.UP) {
 					moveUp();
+					world.endPlayerTurn();
 					return true;
 				} else if (keycode == Keys.DOWN) {
 					moveDown();
+					world.endPlayerTurn();
 					return true;
-				} else if (keycode == Keys.SPACE) {
-					dungeon.buildDungeon("cyberpunk/Zabutom_-_Zeta_force_level_2.mp3");
+				} else if (keycode == Keys.SPACE) { // TODO: Debug code, to be removed
+					dungeon.buildDungeon("neon/Zabutom_-_Zeta_force_level_2.mp3");
 				}
 				
 				return false;
 			}
 			
 			public boolean keyUp(InputEvent event, int keycode) {
-				System.out.println("Player received input " + keycode);
-				if (keycode == Keys.LEFT) {
-					return true;
-				} else if (keycode == Keys.RIGHT) {
-					return true;
-				} else if (keycode == Keys.UP) {
-					return true;
-				} else if (keycode == Keys.DOWN) {
-					return true;
-				}
+//				System.out.println("Player key up " + keycode);
+//				if (keycode == Keys.LEFT) {
+//					return true;
+//				} else if (keycode == Keys.RIGHT) {
+//					return true;
+//				} else if (keycode == Keys.UP) {
+//					return true;
+//				} else if (keycode == Keys.DOWN) {
+//					return true;
+//				}
 				
 				return false;
 			}

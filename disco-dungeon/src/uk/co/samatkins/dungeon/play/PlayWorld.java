@@ -18,7 +18,7 @@ public class PlayWorld extends World {
 		
 		Room startRoom = this.dungeon.getStartRoom();
 		
-		this.player = new Player(this.dungeon, startRoom.getCentreX(), startRoom.getCentreY());
+		this.player = new Player(this, this.dungeon, startRoom.getCentreX(), startRoom.getCentreY());
 		this.add(player);
 		this.setKeyboardFocus(player);
 		this.playersTurn = true;
@@ -41,5 +41,12 @@ public class PlayWorld extends World {
 		}
 		System.out.println("Not the player's turn!");
 		return false;
+	}
+	
+	/**
+	 * Called after the player acts. Have any non-player entities move.
+	 */
+	public void endPlayerTurn() {
+		this.playersTurn = false;
 	}
 }
