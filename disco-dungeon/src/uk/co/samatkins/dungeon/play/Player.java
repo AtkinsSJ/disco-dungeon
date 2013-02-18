@@ -1,5 +1,7 @@
 package uk.co.samatkins.dungeon.play;
 
+import uk.co.samatkins.AnimatedSprite;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +14,12 @@ public class Player extends DungeonEntity {
 	public Player(final Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
 		
-		this.sprite = new Sprite(new Texture(Gdx.files.internal("neon/entities.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
+		AnimatedSprite animation = new AnimatedSprite(new Texture(Gdx.files.internal("neon/entities.png")), Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT, 10);
+		animation.addAnimation("idle", new int[] {0,1} );
+		animation.play("idle");
+		
+		
+		this.sprite = animation;
 		
 		this.addListener(new InputListener() {
 			public boolean keyDown(InputEvent event, int keycode) {
