@@ -36,7 +36,8 @@ public class DungeonEntity extends Entity {
 	
 	private boolean moveBy(final int across, final int up) {
 		
-		if (dungeon.isTileSolid(this.tileX + across, this.tileY + up)) {
+		if (dungeon.isTileSolid(this.tileX + across, this.tileY + up)
+				|| (dungeon.getEntityAt(this.tileX + across, this.tileY + up) != null) ) {
 			return false;
 		}
 		

@@ -313,5 +313,25 @@ public class Dungeon extends Entity {
 			this.isPlayersTurn = true;
 		}
 	}
+	
+	/**
+	 * Returns the DungeonEntity at the given tile coordinate, or null if it is empty.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public DungeonEntity getEntityAt(int x, int y) {
+		if ( (this.player.tileX == x) && (this.player.tileY == y) ) {
+			return this.player;
+		}
+		
+		for (DungeonEntity e: this.entities) {
+			if ( (e.tileX == x) && (e.tileY == y) ) {
+				return e;
+			}
+		}
+		
+		return null;
+	}
 
 }
