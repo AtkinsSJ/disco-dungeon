@@ -6,6 +6,7 @@ import java.util.List;
 import uk.co.samatkins.Entity;
 import uk.co.samatkins.FileRNG;
 import uk.co.samatkins.Tilemap;
+import uk.co.samatkins.dungeon.data.AssetManager;
 import uk.co.samatkins.dungeon.play.dungeon.Room;
 
 import com.badlogic.gdx.Gdx;
@@ -18,6 +19,7 @@ public class Dungeon extends Entity {
 	
 	private Tilemap tilemap;
 	
+	private AssetManager assets;
 	private FileRNG random;
 	
 	private Room startRoom;
@@ -34,15 +36,16 @@ public class Dungeon extends Entity {
 		
 		this.isPlayersTurn = true;
 		
-		sprite = tilemap = new Tilemap(new Texture(Gdx.files.internal("neon/tiles.png")), TILE_WIDTH, TILE_HEIGHT, width, height);
-		tilemap.setTileRect(0, width-1, 0, height-1, -1); // Set all to void
+		this.assets = AssetManager.getInstance();
+		this.sprite = this.tilemap = new Tilemap(this.assets.getTilesTexture(), TILE_WIDTH, TILE_HEIGHT, width, height);
+		this.tilemap.setTileRect(0, width-1, 0, height-1, -1); // Set all to void
 	}
 	
 	public void buildDungeon(String filename) {
-		tilemap.clear();
-		entities = new ArrayList<DungeonEntity>();
+		this.tilemap.clear();
+		this.entities = new ArrayList<DungeonEntity>();
 		
-		random = new FileRNG(Gdx.files.internal(filename).read());
+		this.random = new FileRNG(Gdx.files.internal(filename).read());
 		
 		// Create starting lists
 		int gridSize = 6,
@@ -171,7 +174,9 @@ public class Dungeon extends Entity {
 		// Generate player
 		this.player = new Player(this, this.startRoom.getCentreX(), this.startRoom.getCentreY());
 		
-		DungeonEntity e = new Enemy(this, this.player.tileX+1, this.player.tileY+1);
+		DungeonEntity e = Enemy.create(
+				this.assets.getEnemyData(this.random.getIntBetween(0, this.assets.getEnemyTypeCount()-1)),
+				this, this.player.tileX+1, this.player.tileY+1);
 		this.entities.add(e);
 		this.world.add(e);
 	}

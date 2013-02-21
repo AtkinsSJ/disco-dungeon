@@ -10,6 +10,10 @@ public class DungeonEntity extends Entity {
 	
 	protected Dungeon dungeon;
 	protected int tileX, tileY;
+
+	protected int hp;
+	protected int maxHp;
+	protected String name;
 	
 	protected boolean animating;
 
@@ -24,6 +28,10 @@ public class DungeonEntity extends Entity {
 		this.setY(this.tileY * Dungeon.TILE_HEIGHT);
 		
 		this.animating = false;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 	
 	@Override

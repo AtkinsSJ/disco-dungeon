@@ -1,6 +1,7 @@
 package uk.co.samatkins.dungeon.play;
 
 import uk.co.samatkins.AnimatedSprite;
+import uk.co.samatkins.dungeon.data.AssetManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -14,7 +15,7 @@ public class Player extends DungeonEntity {
 	public Player(final Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
 		
-		AnimatedSprite animation = new AnimatedSprite(new Texture(Gdx.files.internal("neon/entities.png")), Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT, 10);
+		AnimatedSprite animation = new AnimatedSprite(AssetManager.getInstance().getEntitiesTexture(), Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT, 10);
 		animation.addAnimation("idle", new int[] {0,1} );
 		animation.play("idle");
 		

@@ -1,8 +1,8 @@
 [
 	{
 		"name": "ghost",
-		"tiles": [0,1],
+		"tileIDs": [0,1],
 		"hp": 5
-	},
+	}
 	
 ]

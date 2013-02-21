@@ -3,15 +3,18 @@ package uk.co.samatkins.dungeon.play;
 import com.badlogic.gdx.math.Vector3;
 
 import uk.co.samatkins.World;
+import uk.co.samatkins.dungeon.data.AssetManager;
 import uk.co.samatkins.dungeon.play.dungeon.Room;
 
 public class PlayWorld extends World {
-	
 	private Dungeon dungeon;
 	private Player player;
 
 	public PlayWorld() {
 		super();
+		
+		AssetManager.getInstance().loadTheme("neon");
+		
 		this.dungeon = new Dungeon(100, 100);
 		this.add(this.dungeon);
 		
