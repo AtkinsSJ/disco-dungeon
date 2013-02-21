@@ -67,10 +67,12 @@ public class DungeonEntity extends Entity {
 	}
 	
 	public boolean moveLeft() {
+		this.sprite.flip(false, false);
 		return moveBy(-1, 0);
 	}
 	
 	public boolean moveRight() {
+		this.sprite.flip(true, false);
 		return moveBy(1, 0);
 	}
 	

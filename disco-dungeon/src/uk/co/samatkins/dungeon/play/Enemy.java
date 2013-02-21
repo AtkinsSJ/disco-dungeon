@@ -17,7 +17,7 @@ public class Enemy extends DungeonEntity {
 		
 		e.hp = e.maxHp = data.getHp();
 		e.name = data.getName();
-		AnimatedSprite ani = new AnimatedSprite(AssetManager.getInstance().getEntitiesTexture(), Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT, 10);
+		AnimatedSprite ani = new AnimatedSprite(AssetManager.getInstance().getEntitiesTexture(), Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT, 5);
 		ani.addAnimation("idle", data.getTileIDs());
 		ani.play("idle");
 		e.sprite = ani;

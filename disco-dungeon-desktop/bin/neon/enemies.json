@@ -3,6 +3,12 @@
 		"name": "ghost",
 		"tileIDs": [0,1],
 		"hp": 5
+	},
+	{
+		"name": "rat",
+		"tileIDs": [62,63],
+		"hp": 5
 	}
+	
 	
 ]

@@ -51,11 +51,16 @@ public class AnimatedSprite extends Sprite {
 					this.currentAnimationFrame = 0;
 				}
 				
+				boolean flipX = this.isFlipX(),
+						flipY = this.isFlipY();
+				
 				// Adjust texture region
 				int frame = this.currentAnimation[this.currentAnimationFrame];
 				int fx = (frame % this.framesAcross) * this.frameWidth;
 				int fy = (int) Math.floor(frame / this.framesAcross) * this.frameHeight;
 				this.setRegion(fx, fy, this.frameWidth, this.frameHeight);
+				
+				this.flip(flipX, flipY);
 			}
 		}
 		
@@ -70,6 +75,22 @@ public class AnimatedSprite extends Sprite {
 	public void play(String name) {
 		this.currentAnimation = this.animations.get(name);
 		this.currentAnimationFrame = 0;
+	}
+	
+	public void setFlipX(boolean flip) {
+		this.flip( (this.isFlipX() != flip), false );
+	}
+	
+	public void setFlipY(boolean flip) {
+		this.flip( false, (this.isFlipY() != flip) );
+	}
+	
+	/**
+	 * Set whether X and Y are flipped, because the default is confusing.
+	 */
+	@Override
+	public void flip(boolean x, boolean y) {
+		super.flip( (this.isFlipX() != x), (this.isFlipY() != y) );
 	}
 
 }
