@@ -174,15 +174,19 @@ public class Dungeon extends Entity {
 		// Generate player
 		this.player = new Player(this, this.startRoom.getCentreX(), this.startRoom.getCentreY());
 		
-		DungeonEntity e = Enemy.create(
-				this.assets.getEnemyData(this.random.getIntBetween(0, this.assets.getEnemyTypeCount()-1)),
-				this, this.player.tileX+1, this.player.tileY+1);
-		this.entities.add(e);
-		this.world.add(e);
+		this.placeEnemy(this.player.tileX+1, this.player.tileY+1);
 	}
 	
 	public boolean isTileSolid(int x, int y) {
 		return this.tilemap.getSolid(x, y);
+	}
+	
+	private void placeEnemy(int x, int y) {
+		Enemy e = Enemy.create(
+				this.assets.getEnemyData(this.random.getIntBetween(0, this.assets.getEnemyTypeCount()-1)),
+				this, x, y);
+		this.entities.add(e);
+		this.world.add(e);
 	}
 	
 	private void placeWall(int x, int y) {

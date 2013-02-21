@@ -38,7 +38,7 @@ public class AnimatedSprite extends Sprite {
 	@Override
 	public void draw(SpriteBatch spriteBatch, float alphaModulation) {
 		
-		// Do nothing if no animation is set
+		// Do nothing if no animation not set
 		if (this.currentAnimation != null) {
 			// Update frame
 			this.timeStep += Gdx.graphics.getDeltaTime();
@@ -75,14 +75,6 @@ public class AnimatedSprite extends Sprite {
 	public void play(String name) {
 		this.currentAnimation = this.animations.get(name);
 		this.currentAnimationFrame = 0;
-	}
-	
-	public void setFlipX(boolean flip) {
-		this.flip( (this.isFlipX() != flip), false );
-	}
-	
-	public void setFlipY(boolean flip) {
-		this.flip( false, (this.isFlipY() != flip) );
 	}
 	
 	/**
