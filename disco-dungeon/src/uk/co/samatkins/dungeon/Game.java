@@ -24,7 +24,7 @@ public class Game extends com.badlogic.gdx.Game {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
+		System.out.println(Gdx.graphics.getFramesPerSecond() + "fps");
 		this.setScreen(new PlayWorld());
 		
 	}

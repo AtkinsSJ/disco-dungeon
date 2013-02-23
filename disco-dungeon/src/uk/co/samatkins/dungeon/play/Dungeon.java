@@ -71,7 +71,7 @@ public class Dungeon extends Entity {
 			
 			// If a fully connected, skip it
 			if (graph[a] == 15) {
-				System.out.println("Skipping " + a);
+//				System.out.println("Skipping " + a);
 				continue;
 			}
 			
@@ -119,7 +119,7 @@ public class Dungeon extends Entity {
 			connected.add(b);
 			unconnected.remove((Object)b);
 			
-			System.out.println("Connecting " + a + " to " + b);
+//			System.out.println("Connecting " + a + " to " + b);
 		}
 		
 		// Calculate size of 'chunks' that nodes fit into
@@ -180,6 +180,7 @@ public class Dungeon extends Entity {
 			
 			this.placeEnemy( room.getCentreX(), room.getCentreY() );
 		}
+//		this.placeEnemy( this.player.tileX+1, this.player.tileY );
 	}
 	
 	public boolean isTileSolid(int x, int y) {
@@ -306,6 +307,10 @@ public class Dungeon extends Entity {
 	public void act(float delta) {
 		super.act(delta);
 		
+		this.handleTurns();
+	}
+	
+	private void handleTurns() {
 		// Is it the player's turn?
 		if (this.isPlayersTurn) {
 			return;
@@ -315,17 +320,24 @@ public class Dungeon extends Entity {
 		if ( this.player.isAnimating() || (this.currentEntity == null) || this.currentEntity.isAnimating()) {
 			return;
 		}
+//		} else {
+//			this.currentEntity = this.entities.get(this.currentEntityIndex);
+//		}
 		
-		this.currentEntity.takeTurn();
+//		this.currentEntity.takeTurn();
+//		
+//		// Are there entities waiting to move?
+//		if (this.currentEntityIndex != this.entities.size()-1) {
+//			this.currentEntityIndex++;
+//		} else {
+//			System.out.println("All entities have moved");
+//			this.isPlayersTurn = true;
+//		}
 		
-		// Are there entities waiting to move?
-		if (this.currentEntityIndex != this.entities.size()-1) {
-			this.currentEntityIndex++;
-			this.currentEntity = this.entities.get(this.currentEntityIndex);
-		} else {
-			System.out.println("All entities have moved");
-			this.isPlayersTurn = true;
+		for (DungeonEntity e: this.entities) {
+			e.takeTurn();
 		}
+		this.isPlayersTurn = true;
 	}
 	
 	/**

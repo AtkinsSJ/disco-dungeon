@@ -27,7 +27,7 @@ public class Enemy extends DungeonEntity {
 	
 	@Override
 	public void takeTurn() {
-		System.out.println("Enemy took a turn!");
+		//System.out.println("Enemy took a turn!");
 		int direction = (int) Math.floor(Math.random() * 4);
 		switch (direction) {
 		case 0:
