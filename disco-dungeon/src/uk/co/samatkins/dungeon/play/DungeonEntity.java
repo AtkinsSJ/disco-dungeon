@@ -109,4 +109,32 @@ public class DungeonEntity extends Entity {
 	
 	public void takeTurn() { }
 
+	/**
+	 * Try to move one tile closer to the given destination.
+	 * Tries to move along the furthest axis, then the other axis if that fails.
+	 * 
+	 * @param targetX
+	 * @param targetY
+	 * @return
+	 */
+	public boolean moveTowards(int targetX, int targetY) {
+		int xDiff = targetX - this.tileX;
+		int yDiff = targetY - this.tileY;
+		
+		// Which direction is largest?
+		if (Math.abs(xDiff) > Math.abs(yDiff)) {
+			// Try x first
+			if ( !( (xDiff > 0) ? this.moveRight() : this.moveLeft() ) ) {
+				return ( (yDiff > 0) ? this.moveUp() : this.moveDown() );
+			}
+			
+		} else {
+			// Try y first
+			if ( !( (yDiff > 0) ? this.moveUp() : this.moveDown() ) ) {
+				return ( (xDiff > 0) ? this.moveRight() : this.moveLeft() );
+			}
+		}
+		
+		return false;
+	}
 }

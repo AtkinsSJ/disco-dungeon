@@ -6,14 +6,39 @@ import uk.co.samatkins.dungeon.data.EnemyData;
 
 public class Enemy extends DungeonEntity {
 	
-	public static enum Movement { RANDOM, BEELINE };
+	public static enum Movement {
+		RANDOM {
+			void move(Enemy e) {
+				int direction = (int) Math.floor(Math.random() * 4);
+				switch (direction) {
+				case 0:
+					e.moveUp();
+					break;
+				case 1:
+					e.moveRight();
+					break;
+				case 2:
+					e.moveDown();
+					break;
+				case 3:
+					e.moveLeft();
+					break;
+				}
+			}
+		},
+		BEELINE {
+			void move(Enemy e) {
+				e.moveTowards(e.dungeon.player.tileX, e.dungeon.player.tileY);
+			} 
+		};
+		
+		abstract void move(Enemy e);
+	};
 	
 	private Movement movement;
 
 	public Enemy(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
-		// TODO Auto-generated constructor stub
-		//this.sprite = new Sprite(new Texture(Gdx.files.internal("neon/entities.png")), 0, 0, Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
 	}
 	
 	public static Enemy create(EnemyData data, Dungeon dungeon, int x, int y) {
@@ -33,22 +58,7 @@ public class Enemy extends DungeonEntity {
 	
 	@Override
 	public void takeTurn() {
-		//System.out.println("Enemy took a turn!");
-		int direction = (int) Math.floor(Math.random() * 4);
-		switch (direction) {
-		case 0:
-			this.moveUp();
-			break;
-		case 1:
-			this.moveRight();
-			break;
-		case 2:
-			this.moveDown();
-			break;
-		case 3:
-			this.moveLeft();
-			break;
-		}
+		this.movement.move(this);
 	}
 
 }
