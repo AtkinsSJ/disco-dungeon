@@ -3,12 +3,16 @@ package uk.co.samatkins.dungeon.play;
 import uk.co.samatkins.World;
 import uk.co.samatkins.dungeon.data.AssetManager;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector3;
 
 public class PlayWorld extends World {
 	private Dungeon dungeon;
 	private Player player;
 	private UI ui;
+	
+	private Music music;
 
 	public PlayWorld() {
 		super();
@@ -27,6 +31,9 @@ public class PlayWorld extends World {
 		this.ui = new UI();
 		this.ui.setPlayer(this.player);
 		this.add(this.ui);
+		
+		this.music = Gdx.audio.newMusic(Gdx.files.internal("neon/Zabutom_-_Zeta_force_level_2.mp3"));
+		this.music.play();
 	}
 	
 	public void update(float delta) {
@@ -37,5 +44,11 @@ public class PlayWorld extends World {
 		Vector3 position = this.getCamera().position;
 		position.set(player.getX(), player.getY(), position.z);
 		super.draw();
+	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		this.music.dispose();
 	}
 }
