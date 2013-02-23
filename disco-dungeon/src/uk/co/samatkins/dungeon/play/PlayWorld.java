@@ -1,14 +1,14 @@
 package uk.co.samatkins.dungeon.play;
 
-import com.badlogic.gdx.math.Vector3;
-
 import uk.co.samatkins.World;
 import uk.co.samatkins.dungeon.data.AssetManager;
-import uk.co.samatkins.dungeon.play.dungeon.Room;
+
+import com.badlogic.gdx.math.Vector3;
 
 public class PlayWorld extends World {
 	private Dungeon dungeon;
 	private Player player;
+	private UI ui;
 
 	public PlayWorld() {
 		super();
@@ -23,6 +23,10 @@ public class PlayWorld extends World {
 		this.player = this.dungeon.player;
 		this.add(player);
 		this.setKeyboardFocus(player);
+		
+		this.ui = new UI();
+		this.ui.setPlayer(this.player);
+		this.add(this.ui);
 	}
 	
 	public void update(float delta) {

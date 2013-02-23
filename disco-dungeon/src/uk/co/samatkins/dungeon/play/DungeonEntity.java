@@ -144,6 +144,14 @@ public class DungeonEntity extends Entity {
 		return false;
 	}
 	
+	public int getHp() {
+		return this.hp;
+	}
+	
+	public int getMaxHp() {
+		return this.maxHp;
+	}
+	
 	public void takeDamage(int attack) {
 		System.out.println("OUCH! " + this.getName() + " took " + attack + " damage!");
 		this.dungeon.playParticleEffect("attacked", this.tileX, this.tileY);
