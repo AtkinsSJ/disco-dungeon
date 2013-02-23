@@ -22,7 +22,7 @@ public class Player extends DungeonEntity {
 		
 		this.sprite = animation;
 		
-		this.addListener(new InputListener() {
+		/*this.addListener(new InputListener() {
 			public boolean keyDown(InputEvent event, int keycode) {
 				
 				if (animating) { return false; }
@@ -70,6 +70,28 @@ public class Player extends DungeonEntity {
 				
 				return false;
 			}
-		});
+		});*/
+		
+	}
+	
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		
+		if (this.dungeon.isPlayersTurn()) {
+			if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+				this.moveLeft();
+				this.dungeon.endPlayerTurn();
+			} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+				this.moveRight();
+				this.dungeon.endPlayerTurn();
+			} else if (Gdx.input.isKeyPressed(Keys.UP)) {
+				this.moveUp();
+				this.dungeon.endPlayerTurn();
+			} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+				this.moveDown();
+				this.dungeon.endPlayerTurn();
+			}
+		}
 	}
 }
