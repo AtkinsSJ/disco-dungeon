@@ -2,14 +2,13 @@ package uk.co.samatkins.dungeon.play;
 
 
 
-import com.badlogic.gdx.Gdx;
+import uk.co.samatkins.Entity;
+
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-
-import uk.co.samatkins.Entity;
 
 public class DungeonEntity extends Entity {
 	
@@ -128,13 +127,17 @@ public class DungeonEntity extends Entity {
 		if (Math.abs(xDiff) > Math.abs(yDiff)) {
 			// Try x first
 			if ( !( (xDiff > 0) ? this.moveRight() : this.moveLeft() ) ) {
-				return ( (yDiff > 0) ? this.moveUp() : this.moveDown() );
+				return (yDiff == 0)
+						? false 
+						: ( (yDiff > 0) ? this.moveUp() : this.moveDown() );
 			}
 			
 		} else {
 			// Try y first
 			if ( !( (yDiff > 0) ? this.moveUp() : this.moveDown() ) ) {
-				return ( (xDiff > 0) ? this.moveRight() : this.moveLeft() );
+				return (xDiff == 0)
+						? false
+						: ( (xDiff > 0) ? this.moveRight() : this.moveLeft() );
 			}
 		}
 		

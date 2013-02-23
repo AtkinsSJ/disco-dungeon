@@ -10,8 +10,6 @@ import uk.co.samatkins.dungeon.data.AssetManager;
 import uk.co.samatkins.dungeon.play.dungeon.Room;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL11;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -382,7 +380,7 @@ public class Dungeon extends Entity {
 	
 	public void playParticleEffect(String name, int tileX, int tileY) {
 		if (name.equals("attacked")) {
-			this.particles.setPosition((tileX + 0.5f) * this.TILE_WIDTH, (tileY + 0.5f) * this.TILE_HEIGHT);
+			this.particles.setPosition((tileX + 0.5f) * Dungeon.TILE_WIDTH, (tileY + 0.5f) * Dungeon.TILE_HEIGHT);
 			this.particles.start();
 		}
 	}
