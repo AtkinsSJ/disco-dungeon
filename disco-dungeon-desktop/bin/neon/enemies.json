@@ -2,12 +2,14 @@
 	{
 		"name": "ghost",
 		"tileIDs": [0,1],
-		"hp": 5
+		"hp": 5,
+		"movement": "BEELINE"
 	},
 	{
 		"name": "rat",
 		"tileIDs": [62,63],
-		"hp": 5
+		"hp": 5,
+		"movement": "RANDOM"
 	}
 	
 	

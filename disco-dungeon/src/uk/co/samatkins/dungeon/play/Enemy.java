@@ -5,6 +5,10 @@ import uk.co.samatkins.dungeon.data.AssetManager;
 import uk.co.samatkins.dungeon.data.EnemyData;
 
 public class Enemy extends DungeonEntity {
+	
+	public static enum Movement { RANDOM, BEELINE };
+	
+	private Movement movement;
 
 	public Enemy(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
@@ -17,6 +21,8 @@ public class Enemy extends DungeonEntity {
 		
 		e.hp = e.maxHp = data.getHp();
 		e.name = data.getName();
+		e.movement = data.getMovement();
+		
 		AnimatedSprite ani = new AnimatedSprite(AssetManager.getInstance().getEntitiesTexture(), Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT, 5);
 		ani.addAnimation("idle", data.getTileIDs());
 		ani.play("idle");

@@ -320,19 +320,6 @@ public class Dungeon extends Entity {
 		if ( this.player.isAnimating() || (this.currentEntity == null) || this.currentEntity.isAnimating()) {
 			return;
 		}
-//		} else {
-//			this.currentEntity = this.entities.get(this.currentEntityIndex);
-//		}
-		
-//		this.currentEntity.takeTurn();
-//		
-//		// Are there entities waiting to move?
-//		if (this.currentEntityIndex != this.entities.size()-1) {
-//			this.currentEntityIndex++;
-//		} else {
-//			System.out.println("All entities have moved");
-//			this.isPlayersTurn = true;
-//		}
 		
 		for (DungeonEntity e: this.entities) {
 			e.takeTurn();
@@ -351,6 +338,7 @@ public class Dungeon extends Entity {
 			return this.player;
 		}
 		
+		// For now, should be few enough entities that iterating through all of them is acceptable
 		for (DungeonEntity e: this.entities) {
 			if ( (e.tileX == x) && (e.tileY == y) ) {
 				return e;
