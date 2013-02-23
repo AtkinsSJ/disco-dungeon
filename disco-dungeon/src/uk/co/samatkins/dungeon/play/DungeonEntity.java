@@ -59,7 +59,7 @@ public class DungeonEntity extends Entity {
 		return v;
 	}
 	
-	protected boolean moveBy(final int across, final int up) {
+	protected boolean moveBy(int across, int up) {
 		
 		if (dungeon.isTileSolid(this.tileX + across, this.tileY + up)
 			|| (dungeon.getEntityAt(this.tileX + across, this.tileY + up) != null)) {
@@ -68,14 +68,17 @@ public class DungeonEntity extends Entity {
 		
 		this.animating = true;
 		
+		this.tileX += across;
+		this.tileY += up;
+		
 		this.addAction(
 			Actions.sequence(
 				Actions.moveBy(across * Dungeon.TILE_WIDTH,
 						up * Dungeon.TILE_HEIGHT,// 0.2f),
 						this.visibleToPlayer() ? 0.2f : 0), // If invisible, take 0 seconds
 				new Action() { public boolean act(float delta) {
-					((DungeonEntity)actor).tileX += across;
-					((DungeonEntity)actor).tileY += up;
+//					((DungeonEntity)actor).tileX += across;
+//					((DungeonEntity)actor).tileY += up;
 					((DungeonEntity)actor).animating = false;
 					return true;
 				}}
@@ -147,5 +150,7 @@ public class DungeonEntity extends Entity {
 		}
 	}
 	
-	public void die() { }
+	public void die() {
+		System.out.println("OOF! " + this.getName() + " has died!");
+	}
 }

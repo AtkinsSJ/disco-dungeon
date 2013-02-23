@@ -319,24 +319,24 @@ public class Dungeon extends Entity {
 		// Is current entity animating?
 		if ( this.player.isAnimating() || (this.currentEntity == null) || this.currentEntity.isAnimating()) {
 			return;
-		} else {
-			this.currentEntity = this.entities.get(this.currentEntityIndex);
-		}
+		} //else {
+			//this.currentEntity = this.entities.get(this.currentEntityIndex);
+		//}
 
-		this.currentEntity.takeTurn();
+		//this.currentEntity.takeTurn();
 		
-		// Are there entities waiting to move?
-		if (this.currentEntityIndex != this.entities.size()-1) {
-			this.currentEntityIndex++;
-		} else {
-			System.out.println("All entities have moved");
-			this.isPlayersTurn = true;
-		}
-		
-//		for (DungeonEntity e: this.entities) {
-//			e.takeTurn();
+//		// Are there entities waiting to move?
+//		if (this.currentEntityIndex != this.entities.size()-1) {
+//			this.currentEntityIndex++;
+//		} else {
+//			System.out.println("All entities have moved");
+//			this.isPlayersTurn = true;
 //		}
-//		this.isPlayersTurn = true;
+		
+		for (DungeonEntity e: this.entities) {
+			e.takeTurn();
+		}
+		this.isPlayersTurn = true;
 	}
 	
 	/**
