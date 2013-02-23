@@ -157,4 +157,8 @@ public class DungeonEntity extends Entity {
 	public void die() {
 		System.out.println("OOF! " + this.getName() + " has died!");
 	}
+	
+	protected int distanceToEntity(DungeonEntity e) {
+		return (Math.abs(this.tileX - e.tileX)+ Math.abs(this.tileY - e.tileY));
+	}
 }

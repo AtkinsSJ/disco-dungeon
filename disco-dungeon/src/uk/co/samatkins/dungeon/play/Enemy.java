@@ -35,6 +35,8 @@ public class Enemy extends DungeonEntity {
 		abstract void move(Enemy e);
 	};
 	
+	private int attack;
+	
 	private Movement movement;
 
 	public Enemy(Dungeon dungeon, int x, int y) {
@@ -45,6 +47,7 @@ public class Enemy extends DungeonEntity {
 		Enemy e = new Enemy(dungeon, x, y);
 		
 		e.hp = e.maxHp = data.getHp();
+		e.attack = data.getAttack();
 		e.name = data.getName();
 		e.movement = data.getMovement();
 		
@@ -58,7 +61,16 @@ public class Enemy extends DungeonEntity {
 	
 	@Override
 	public void takeTurn() {
-		this.movement.move(this);
+		// Is the player next to us?
+		if (this.distanceToEntity(this.dungeon.player) == 1) {
+			this.attack(this.dungeon.player);
+		} else {
+			this.movement.move(this);
+		}
+	}
+	
+	private void attack(DungeonEntity e) {
+		e.takeDamage(this.attack);
 	}
 
 }

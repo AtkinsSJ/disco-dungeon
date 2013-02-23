@@ -15,6 +15,9 @@ public class Player extends DungeonEntity {
 	public Player(final Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
 		
+		this.hp = this.maxHp = 20;
+		this.name = "Player";
+		
 		AnimatedSprite animation = new AnimatedSprite(AssetManager.getInstance().getEntitiesTexture(), Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT, 5);
 		animation.addAnimation("idle", new int[] {0,1} );
 		animation.play("idle");
