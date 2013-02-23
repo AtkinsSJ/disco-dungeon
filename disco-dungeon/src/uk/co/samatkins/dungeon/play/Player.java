@@ -5,12 +5,10 @@ import uk.co.samatkins.dungeon.data.AssetManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class Player extends DungeonEntity {
+	
+	private int attack = 1;
 	
 	public Player(final Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
@@ -41,5 +39,22 @@ public class Player extends DungeonEntity {
 				this.dungeon.endPlayerTurn();
 			}
 		}
+	}
+	
+	@Override
+	protected boolean moveBy(final int across, final int up) {
+		boolean result = super.moveBy(across, up);
+		if (!result) {
+			DungeonEntity e = this.dungeon.getEntityAt(this.tileX + across, this.tileY + up);
+			if (e != null) {
+				this.attack(e);
+				return true;
+			}
+		}
+		return result;
+	}
+	
+	private void attack(DungeonEntity e) {
+		e.takeDamage(this.attack);
 	}
 }
