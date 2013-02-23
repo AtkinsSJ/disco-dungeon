@@ -1,7 +1,9 @@
 package uk.co.samatkins.dungeon.data;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.google.gson.*;
 
 public class AssetManager {
@@ -16,9 +18,12 @@ public class AssetManager {
 	private Texture entities;
 	
 	private EnemyData[] enemyData;
+	
+	private ParticleEffect particleAttacked;
 
 	private AssetManager() {
 		this.gson = new Gson();
+		this.loadParticleEffects();
 	}
 	
 	public static AssetManager getInstance() {
@@ -27,6 +32,11 @@ public class AssetManager {
 		}
 		
 		return AssetManager.instance;
+	}
+	
+	private void loadParticleEffects() {
+		this.particleAttacked = new ParticleEffect();
+		this.particleAttacked.load(Gdx.files.internal("particles/attacked.p"), Gdx.files.internal("particles"));
 	}
 	
 	/**
@@ -82,5 +92,9 @@ public class AssetManager {
 			return this.enemyData[index];
 		}
 		return null;
+	}
+	
+	public ParticleEffect getParticleAttacked() {
+		return new ParticleEffect(this.particleAttacked);
 	}
 }

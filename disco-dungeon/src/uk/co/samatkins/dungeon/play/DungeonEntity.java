@@ -143,6 +143,7 @@ public class DungeonEntity extends Entity {
 	
 	public void takeDamage(int attack) {
 		System.out.println("OUCH! " + this.getName() + " took " + attack + " damage!");
+		this.dungeon.playParticleEffect("attacked", this.tileX, this.tileY);
 		this.hp -= attack;
 		if (this.hp <= 0) {
 			this.die();

@@ -10,7 +10,10 @@ import uk.co.samatkins.dungeon.data.AssetManager;
 import uk.co.samatkins.dungeon.play.dungeon.Room;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Dungeon extends Entity {
 	
@@ -18,6 +21,8 @@ public class Dungeon extends Entity {
 	public static final int TILE_HEIGHT = 16;
 	
 	private Tilemap tilemap;
+	
+	private ParticleEffect particles;
 	
 	private AssetManager assets;
 	private FileRNG random;
@@ -39,6 +44,8 @@ public class Dungeon extends Entity {
 		this.assets = AssetManager.getInstance();
 		this.sprite = this.tilemap = new Tilemap(this.assets.getTilesTexture(), TILE_WIDTH, TILE_HEIGHT, width, height);
 		this.tilemap.setTileRect(0, width-1, 0, height-1, -1); // Set all to void
+		
+		this.particles = this.assets.getParticleAttacked();
 	}
 	
 	public void buildDungeon(String filename) {
@@ -307,7 +314,15 @@ public class Dungeon extends Entity {
 	public void act(float delta) {
 		super.act(delta);
 		
+		this.particles.update(delta);
+		
 		this.handleTurns();
+	}
+	
+	@Override
+	public void draw(SpriteBatch batch, float parentAlpha) {
+		super.draw(batch, parentAlpha);
+		this.particles.draw(batch);
 	}
 	
 	private void handleTurns() {
@@ -363,5 +378,12 @@ public class Dungeon extends Entity {
 	public void removeEntity(DungeonEntity e) {
 		this.entities.remove(e);
 		e.remove();
+	}
+	
+	public void playParticleEffect(String name, int tileX, int tileY) {
+		if (name.equals("attacked")) {
+			this.particles.setPosition((tileX + 0.5f) * this.TILE_WIDTH, (tileY + 0.5f) * this.TILE_HEIGHT);
+			this.particles.start();
+		}
 	}
 }
