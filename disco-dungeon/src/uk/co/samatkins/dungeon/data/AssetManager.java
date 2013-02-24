@@ -17,6 +17,8 @@ public class AssetManager {
 	private Texture tiles;
 	private Texture entities;
 	
+	private Texture uiTexture;
+	
 	private EnemyData[] enemyData;
 	
 	private ParticleEffect particleAttacked;
@@ -24,6 +26,8 @@ public class AssetManager {
 	private AssetManager() {
 		this.gson = new Gson();
 		this.loadParticleEffects();
+		
+		this.uiTexture = new Texture(Gdx.files.internal("ui.png"));
 	}
 	
 	public static AssetManager getInstance() {
@@ -81,6 +85,10 @@ public class AssetManager {
 	
 	public Texture getEntitiesTexture() {
 		return this.entities;
+	}
+	
+	public Texture getUITexture() {
+		return this.uiTexture;
 	}
 	
 	public int getEnemyTypeCount() {
