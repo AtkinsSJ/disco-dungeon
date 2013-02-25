@@ -29,6 +29,8 @@ public class Entity extends Actor {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if (this.isVisible() && (sprite != null)) {
 			sprite.setPosition(this.getX(), this.getY());
+			sprite.setRotation(this.getRotation());
+			sprite.setScale(this.getScaleX(), this.getScaleY());
 			sprite.draw(batch, parentAlpha);
 		}
 	}

@@ -38,14 +38,6 @@ public class DungeonEntity extends Entity {
 		return this.name;
 	}
 	
-	@Override
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		if (this.isVisible() && (this.sprite != null)) {
-			this.sprite.setPosition(this.getX(), this.getY());
-			this.sprite.draw(batch, parentAlpha);
-		}
-	}
-	
 	/**
 	 * Is this entity currently visible to the player?
 	 * @return
@@ -157,12 +149,21 @@ public class DungeonEntity extends Entity {
 		this.dungeon.playParticleEffect("attacked", this.tileX, this.tileY);
 		this.hp -= attack;
 		if (this.hp <= 0) {
-			this.die();
 			this.dungeon.removeEntity(this);
+			this.die();
 		}
 	}
 	
 	public void die() {
+		this.addAction(
+			Actions.parallel(
+				Actions.forever(Actions.rotateBy(360, 0.5f)),
+				Actions.sequence(
+					Actions.scaleTo(0f, 0f, 1f),
+					Actions.removeActor()
+				)
+			)
+		);
 		System.out.println("OOF! " + this.getName() + " has died!");
 	}
 	

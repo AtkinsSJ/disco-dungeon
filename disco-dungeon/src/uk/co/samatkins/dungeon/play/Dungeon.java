@@ -375,7 +375,7 @@ public class Dungeon extends Entity {
 	
 	public void removeEntity(DungeonEntity e) {
 		this.entities.remove(e);
-		e.remove();
+		//e.remove();
 	}
 	
 	public void playParticleEffect(String name, int tileX, int tileY) {
