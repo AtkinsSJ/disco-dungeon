@@ -18,6 +18,7 @@ public class AssetManager {
 	private Texture entities;
 	
 	private Texture uiTexture;
+	private Texture discoLightsTexture;
 	
 	private EnemyData[] enemyData;
 	
@@ -28,6 +29,7 @@ public class AssetManager {
 		this.loadParticleEffects();
 		
 		this.uiTexture = new Texture(Gdx.files.internal("ui.png"));
+		this.discoLightsTexture = new Texture(Gdx.files.internal("discolights.png"));
 	}
 	
 	public static AssetManager getInstance() {
@@ -89,6 +91,10 @@ public class AssetManager {
 	
 	public Texture getUITexture() {
 		return this.uiTexture;
+	}
+	
+	public Texture getDiscoLightsTexture() {
+		return this.discoLightsTexture;
 	}
 	
 	public int getEnemyTypeCount() {

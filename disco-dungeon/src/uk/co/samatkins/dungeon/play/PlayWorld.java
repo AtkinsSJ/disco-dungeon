@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 public class PlayWorld extends World {
 	private Dungeon dungeon;
 	private Player player;
+	private DiscoLights disco;
 	private UI ui;
 	
 	private Music music;
@@ -27,6 +28,9 @@ public class PlayWorld extends World {
 		this.player = this.dungeon.player;
 		this.add(player);
 		this.setKeyboardFocus(player);
+		
+		this.disco = new DiscoLights();
+		this.add(this.disco);
 		
 		this.ui = new UI();
 		this.ui.setPlayer(this.player);
