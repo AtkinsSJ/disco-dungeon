@@ -8,12 +8,14 @@ public class EnemyData {
 	private int hp;
 	private int attack;
 	private Movement movement;
+	private String[] traits;
 	
 	public String getName() { return name; }
 	public int[] getTileIDs() { return tileIDs; }
 	public int getHp() { return hp; }
 	public int getAttack() { return attack; }
 	public Movement getMovement() { return movement; }
+	public String[] getTraits() { return traits; }
 	
 	@Override
 	public String toString() {

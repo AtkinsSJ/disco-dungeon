@@ -37,6 +37,7 @@ public class PlayWorld extends World {
 		this.add(this.ui);
 		
 		this.music = Gdx.audio.newMusic(Gdx.files.internal("neon/Zabutom_-_Zeta_force_level_2.mp3"));
+		this.music.setVolume(0.5f);
 		this.music.play();
 	}
 	

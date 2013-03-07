@@ -46,7 +46,6 @@ public class DungeonEntity extends Entity {
 		Camera cam = this.world.getCamera();
 		Rectangle r = new Rectangle(cam.position.x - (cam.viewportWidth/2), cam.position.y - (cam.viewportHeight/2), cam.viewportWidth, cam.viewportHeight);
 		boolean v = r.contains(this.getX(), this.getY());
-		//System.out.println(this.getName() + " is " + (v ? "visible" : "INVISIBLE"));
 		return v;
 	}
 	
@@ -68,8 +67,6 @@ public class DungeonEntity extends Entity {
 						up * Dungeon.TILE_HEIGHT,// 0.2f),
 						this.visibleToPlayer() ? 0.2f : 0), // If invisible, take 0 seconds
 				new Action() { public boolean act(float delta) {
-//					((DungeonEntity)actor).tileX += across;
-//					((DungeonEntity)actor).tileY += up;
 					((DungeonEntity)actor).animating = false;
 					return true;
 				}}
@@ -155,6 +152,7 @@ public class DungeonEntity extends Entity {
 	}
 	
 	public void die() {
+		// Death animation: Spin and shrink, then remove from the world.
 		this.addAction(
 			Actions.parallel(
 				Actions.forever(Actions.rotateBy(360, 0.5f)),
@@ -164,7 +162,6 @@ public class DungeonEntity extends Entity {
 				)
 			)
 		);
-		System.out.println("OOF! " + this.getName() + " has died!");
 	}
 	
 	protected int distanceToEntity(DungeonEntity e) {

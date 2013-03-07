@@ -4,7 +4,10 @@
 		"tileIDs": [0,1],
 		"hp": 5,
 		"attack": 2,
-		"movement": "BEELINE"
+		"movement": "BEELINE",
+		"traits": [
+			"CAUTIOUS"
+		]
 	},
 	{
 		"name": "rat",
