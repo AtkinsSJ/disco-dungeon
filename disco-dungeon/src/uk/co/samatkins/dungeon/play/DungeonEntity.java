@@ -167,4 +167,13 @@ public class DungeonEntity extends Entity {
 	protected int distanceToEntity(DungeonEntity e) {
 		return (Math.abs(this.tileX - e.tileX)+ Math.abs(this.tileY - e.tileY));
 	}
+	
+	/**
+	 * Returns whether the given DungeonEntity can be seen by this DungeonEntity
+	 * @param e
+	 * @return
+	 */
+	protected boolean canSee(DungeonEntity e) {
+		return true;
+	}
 }
