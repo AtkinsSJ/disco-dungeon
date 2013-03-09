@@ -1,10 +1,10 @@
 package uk.co.samatkins.dungeon.play;
 
-import com.badlogic.gdx.Gdx;
-
 import uk.co.samatkins.AnimatedSprite;
 import uk.co.samatkins.dungeon.data.AssetManager;
 import uk.co.samatkins.dungeon.data.EnemyData;
+
+import com.badlogic.gdx.Gdx;
 
 public class Enemy extends DungeonEntity {
 	
@@ -99,7 +99,6 @@ public class Enemy extends DungeonEntity {
 	private State state;
 	
 	private int attack;
-	
 
 	public Enemy(Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);

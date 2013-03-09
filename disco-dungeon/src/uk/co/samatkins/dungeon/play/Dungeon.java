@@ -180,12 +180,12 @@ public class Dungeon extends Entity {
 		this.player = new Player(this, this.startRoom.getCentreX(), this.startRoom.getCentreY());
 		
 		// Place some enemies!
-		for (Room room : rooms) {
-			if (room == this.startRoom) { continue; }
-			
-			this.placeEnemy( room.getCentreX(), room.getCentreY() );
-		}
-//		this.placeEnemy( this.player.tileX+1, this.player.tileY );
+//		for (Room room : rooms) {
+//			if (room == this.startRoom) { continue; }
+//			
+//			this.placeEnemy( room.getCentreX(), room.getCentreY() );
+//		}
+		this.placeEnemy( this.player.tileX+1, this.player.tileY );
 	}
 	
 	public boolean isTileSolid(int x, int y) {

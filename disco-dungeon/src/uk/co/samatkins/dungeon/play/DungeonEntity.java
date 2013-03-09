@@ -6,7 +6,6 @@ import uk.co.samatkins.Entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -189,14 +188,15 @@ public class DungeonEntity extends Entity {
 	 * @return
 	 */
 	protected boolean canSee(DungeonEntity e) {
-		Vector2 myPos = new Vector2(this.tileX, this.tileY);
-		Vector2 otherPos = new Vector2(e.tileX, e.tileY); 
+		Vector2 myPos = new Vector2(this.tileX + 0.5f, this.tileY + 0.5f);
+		Vector2 otherPos = new Vector2(e.tileX + 0.5f, e.tileY + 0.5f); 
 		float angle = new Vector2(otherPos).sub(myPos).angle();
 		
 		Vector2 step = new Vector2(0.5f, 0).rotate(angle);
 		
-		while (!myPos.epsilonEquals(otherPos, 0.8f)) {
-			if (this.dungeon.isTileSolid((int) Math.floor(myPos.x), (int) Math.floor(myPos.x))) {
+		while (!myPos.epsilonEquals(otherPos, 0.5f)) {
+			if (this.dungeon.isTileSolid((int) Math.floor(myPos.x), (int) Math.floor(myPos.y))) {
+				//Gdx.app.log("Raycast", "Can't see " + e.tileX + "," + e.tileY + " because of wall at " + myPos);
 				return false;
 			}
 			
