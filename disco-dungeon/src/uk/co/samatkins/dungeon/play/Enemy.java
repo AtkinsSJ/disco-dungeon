@@ -78,11 +78,13 @@ public class Enemy extends DungeonEntity {
 		},
 		APPROACH {
 			State run(Enemy e) {
+				e.moveTowards(e.dungeon.player);
 				return this;
 			}
 		},
 		RETREAT {
 			State run(Enemy e) {
+				e.moveAwayFrom(e.dungeon.player);
 				return this;
 			}
 		}

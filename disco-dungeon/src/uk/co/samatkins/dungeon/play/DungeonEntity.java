@@ -4,9 +4,11 @@ package uk.co.samatkins.dungeon.play;
 
 import uk.co.samatkins.Entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
@@ -133,6 +135,19 @@ public class DungeonEntity extends Entity {
 		return false;
 	}
 	
+	public boolean moveTowards(DungeonEntity e) {
+		return this.moveTowards(e.tileX,  e.tileY);
+	}
+	
+	public boolean moveAwayFrom(DungeonEntity e) {
+		// Find coordinate that is in opposite direction of e from self
+		int dX = this.tileX + (this.tileX - e.tileX);
+		int dY = this.tileY + (this.tileY - e.tileY);
+		
+		// Move towards this new coordinate
+		return this.moveTowards(dX, dY);
+	}
+	
 	public int getHp() {
 		return this.hp;
 	}
@@ -174,6 +189,24 @@ public class DungeonEntity extends Entity {
 	 * @return
 	 */
 	protected boolean canSee(DungeonEntity e) {
+		Vector2 myPos = new Vector2(this.tileX, this.tileY);
+		Vector2 otherPos = new Vector2(e.tileX, e.tileY); 
+		float angle = new Vector2(otherPos).sub(myPos).angle();
+		
+		Vector2 step = new Vector2(0.5f, 0).rotate(angle);
+		
+		while (!myPos.epsilonEquals(otherPos, 0.8f)) {
+			if (this.dungeon.isTileSolid((int) Math.floor(myPos.x), (int) Math.floor(myPos.x))) {
+				return false;
+			}
+			
+			myPos.add(step);
+			
+			if (myPos.x < 0 || myPos.y < 0 || myPos.x > 110 || myPos.y > 110) {
+				// ABORT!!!!
+				Gdx.app.log("Raycast", "SOMETHING WENT WRONG!");
+			}
+		}
 		return true;
 	}
 }
