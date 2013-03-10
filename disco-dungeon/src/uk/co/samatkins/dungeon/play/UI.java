@@ -84,7 +84,13 @@ public class UI extends Entity {
 				tx = this.player.tileX - (tilesAcross/2) - 1 + i;
 				ty = this.player.tileY - (tilesUp/2) - 1 + j;
 				
-				this.shape.setColor(0, 0, 0, 0.5f);
+				if ( this.player.dungeon.tileHasBeenSeen(tx, ty) ) {
+					continue;
+					//this.shape.setColor(0, 0, 0, 0.5f);
+				} else {
+					this.shape.setColor(0, 0, 0, 1);
+				}
+				
 				this.shape.filledRect(
 					tx * Dungeon.TILE_WIDTH,
 					ty * Dungeon.TILE_HEIGHT,
@@ -95,7 +101,7 @@ public class UI extends Entity {
 		
 		this.shape.end();
 		
-		// Disable it again
+		// Disable blending again
 		Gdx.gl.glDisable(GL10.GL_BLEND);
 	}
 

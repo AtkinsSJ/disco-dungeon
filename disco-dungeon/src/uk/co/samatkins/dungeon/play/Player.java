@@ -12,6 +12,8 @@ public class Player extends DungeonEntity {
 	
 	private int attack = 1;
 	
+	private int sightDistance = 10;
+	
 	public Player(final Dungeon dungeon, int x, int y) {
 		super(dungeon, x, y);
 		
@@ -23,6 +25,8 @@ public class Player extends DungeonEntity {
 		animation.play("idle");
 		
 		this.sprite = animation;
+		
+		this.refreshFogOfWar();
 	}
 	
 	@Override
@@ -38,7 +42,7 @@ public class Player extends DungeonEntity {
 				} else {
 					this.moveLeft();
 				}
-				this.dungeon.endPlayerTurn();
+				this.endTurn();
 			} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 				e = this.dungeon.getEntityAt(this.tileX+1, this.tileY);
 				if (e != null) {
@@ -46,7 +50,7 @@ public class Player extends DungeonEntity {
 				} else {
 					this.moveRight();
 				}
-				this.dungeon.endPlayerTurn();
+				this.endTurn();
 			} else if (Gdx.input.isKeyPressed(Keys.UP)) {
 				e = this.dungeon.getEntityAt(this.tileX, this.tileY+1);
 				if (e != null) {
@@ -54,7 +58,7 @@ public class Player extends DungeonEntity {
 				} else {
 					this.moveUp();
 				}
-				this.dungeon.endPlayerTurn();
+				this.endTurn();
 			} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
 				e = this.dungeon.getEntityAt(this.tileX, this.tileY-1);
 				if (e != null) {
@@ -62,7 +66,7 @@ public class Player extends DungeonEntity {
 				} else {
 					this.moveDown();
 				}
-				this.dungeon.endPlayerTurn();
+				this.endTurn();
 			}
 		}
 	}
@@ -82,5 +86,24 @@ public class Player extends DungeonEntity {
 				}
 			})
 		);
+	}
+	
+	private void endTurn() {
+		this.dungeon.endPlayerTurn();
+		this.refreshFogOfWar();
+	}
+	
+	private void refreshFogOfWar() {
+		int l = this.tileX - this.sightDistance;
+		int r = this.tileX + this.sightDistance;
+		int d = this.tileY - this.sightDistance;
+		int u = this.tileY + this.sightDistance;
+		for (int tx = l; tx < r; tx++) {
+			for (int ty = d; ty < u; ty++) {
+				if (this.canSee(tx, ty)) {
+					this.dungeon.setTileAsSeen(tx, ty);
+				}
+			}
+		}
 	}
 }

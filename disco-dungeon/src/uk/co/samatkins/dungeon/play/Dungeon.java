@@ -18,7 +18,11 @@ public class Dungeon extends Entity {
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
 	
+	public int tilesX, tilesY;
+	
 	private Tilemap tilemap;
+	
+	private boolean[][] seenTiles;
 	
 	private ParticleEffect particles;
 	
@@ -37,6 +41,9 @@ public class Dungeon extends Entity {
 	public Dungeon(int width, int height) {
 		super();
 		
+		this.tilesX = width;
+		this.tilesY = height;
+		
 		this.isPlayersTurn = true;
 		
 		this.assets = AssetManager.getInstance();
@@ -51,6 +58,8 @@ public class Dungeon extends Entity {
 		this.entities = new ArrayList<DungeonEntity>();
 		
 		this.random = new FileRNG(Gdx.files.internal(filename).read());
+		
+		this.seenTiles = new boolean[this.tilesX][this.tilesY];
 		
 		// Create starting lists
 		int gridSize = 6,
@@ -382,6 +391,24 @@ public class Dungeon extends Entity {
 		if (name.equals("attacked")) {
 			this.particles.setPosition((tileX + 0.5f) * Dungeon.TILE_WIDTH, (tileY + 0.5f) * Dungeon.TILE_HEIGHT);
 			this.particles.start();
+		}
+	}
+	
+	public boolean tileExists(int x, int y) {
+		return (x >= 0 && x < this.tilesX && y >= 0 && y < this.tilesY);
+	}
+	
+	public boolean tileHasBeenSeen(int x, int y) {
+		if (this.tileExists(x, y)) {
+			return this.seenTiles[x][y];
+		} else {
+			return false;
+		}
+	}
+	
+	public void setTileAsSeen(int x, int y) {
+		if (this.tileExists(x, y)) {
+			this.seenTiles[x][y] = true;
 		}
 	}
 }

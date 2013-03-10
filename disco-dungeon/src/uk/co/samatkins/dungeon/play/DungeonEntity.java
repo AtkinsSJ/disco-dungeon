@@ -188,8 +188,12 @@ public class DungeonEntity extends Entity {
 	 * @return
 	 */
 	protected boolean canSee(DungeonEntity e) {
+		return this.canSee(e.tileX, e.tileY);
+	}
+	
+	protected boolean canSee(int x, int y) {
 		Vector2 myPos = new Vector2(this.tileX + 0.5f, this.tileY + 0.5f);
-		Vector2 otherPos = new Vector2(e.tileX + 0.5f, e.tileY + 0.5f); 
+		Vector2 otherPos = new Vector2(x + 0.5f, y + 0.5f); 
 		float angle = new Vector2(otherPos).sub(myPos).angle();
 		
 		Vector2 step = new Vector2(0.5f, 0).rotate(angle);
