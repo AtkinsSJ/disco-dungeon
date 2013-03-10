@@ -48,7 +48,7 @@ public class UI extends Entity {
 				cam.position.y - (cam.viewportHeight/2));
 		batch.end();
 		
-		this.renderShadows();
+		this.renderFogOfWar();
 		
 		batch.begin();
 		// ==== HEALTH BAR ====
@@ -64,18 +64,35 @@ public class UI extends Entity {
 				(int)Math.floor(64 * this.playerHealthPercent), 8);
 	}
 	
-	private void renderShadows() {
+	private void renderFogOfWar() {
 		// Enable blending
 		Gdx.gl.glEnable(GL10.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		
-		this.shape.setProjectionMatrix(this.world.getCamera().combined);
+		Camera cam = this.world.getCamera();
+		int tilesAcross = 3 + (int) Math.ceil(cam.viewportWidth / Dungeon.TILE_WIDTH);
+		int tilesUp = 3 + (int) Math.ceil(cam.viewportHeight / Dungeon.TILE_HEIGHT);
 		
+		this.shape.setProjectionMatrix(cam.combined);
 		this.shape.begin(ShapeType.FilledRectangle);
 		
+		int tx, ty;
 		
-		this.shape.setColor(0, 0, 0, 0.5f);
-		this.shape.filledRect(this.getX(), this.getY(), Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
+		for (int i=0; i<tilesAcross; i++) {
+			for (int j=0; j<tilesUp; j++) {
+				
+				tx = this.player.tileX - (tilesAcross/2) - 1 + i;
+				ty = this.player.tileY - (tilesUp/2) - 1 + j;
+				
+				this.shape.setColor(0, 0, 0, 0.5f);
+				this.shape.filledRect(
+					tx * Dungeon.TILE_WIDTH,
+					ty * Dungeon.TILE_HEIGHT,
+					Dungeon.TILE_WIDTH,
+					Dungeon.TILE_HEIGHT);
+			}
+		}
+		
 		this.shape.end();
 		
 		// Disable it again
