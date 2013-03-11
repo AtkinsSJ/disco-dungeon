@@ -39,15 +39,18 @@ public class DungeonEntity extends Entity {
 		return this.name;
 	}
 	
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		this.setVisible(this.visibleToPlayer());
+	}
+	
 	/**
 	 * Is this entity currently visible to the player?
 	 * @return
 	 */
 	public boolean visibleToPlayer() {
-		Camera cam = this.world.getCamera();
-		Rectangle r = new Rectangle(cam.position.x - (cam.viewportWidth/2), cam.position.y - (cam.viewportHeight/2), cam.viewportWidth, cam.viewportHeight);
-		boolean v = r.contains(this.getX(), this.getY());
-		return v;
+		return this.dungeon.tileIsVisible(this.tileX, this.tileY);
 	}
 	
 	protected boolean moveBy(int across, int up) {
@@ -66,7 +69,7 @@ public class DungeonEntity extends Entity {
 			Actions.sequence(
 				Actions.moveBy(across * Dungeon.TILE_WIDTH,
 						up * Dungeon.TILE_HEIGHT,// 0.2f),
-						this.visibleToPlayer() ? 0.2f : 0), // If invisible, take 0 seconds
+						this.isVisible() ? 0.2f : 0), // If invisible, take 0 seconds
 				new Action() { public boolean act(float delta) {
 					((DungeonEntity)actor).animating = false;
 					return true;
