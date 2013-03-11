@@ -196,9 +196,9 @@ public class DungeonEntity extends Entity {
 		Vector2 otherPos = new Vector2(x + 0.5f, y + 0.5f); 
 		float angle = new Vector2(otherPos).sub(myPos).angle();
 		
-		Vector2 step = new Vector2(0.5f, 0).rotate(angle);
+		Vector2 step = new Vector2(0.3f, 0).rotate(angle);
 		
-		while (!myPos.epsilonEquals(otherPos, 0.5f)) {
+		while (!myPos.epsilonEquals(otherPos, 0.2f)) {
 			if (this.dungeon.isTileSolid((int) Math.floor(myPos.x), (int) Math.floor(myPos.y))) {
 				//Gdx.app.log("Raycast", "Can't see " + e.tileX + "," + e.tileY + " because of wall at " + myPos);
 				return false;
