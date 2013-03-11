@@ -46,7 +46,7 @@ public class AnimatedSprite extends Sprite {
 				this.timeStep -= this.timePerFrame;
 				
 				// Next frame
-				this.nextFrame();
+				this.showNextFrame();
 			}
 		}
 		
@@ -63,10 +63,10 @@ public class AnimatedSprite extends Sprite {
 		this.currentAnimationFrame = 0;
 		
 		// Immediately set texture region
-		this.nextFrame();
+		this.showNextFrame();
 	}
 	
-	protected void nextFrame() {
+	protected void showNextFrame() {
 		this.currentAnimationFrame++;
 		if (this.currentAnimationFrame >= this.currentAnimation.length) {
 			this.currentAnimationFrame = 0;
