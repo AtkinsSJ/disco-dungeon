@@ -46,21 +46,7 @@ public class AnimatedSprite extends Sprite {
 				this.timeStep -= this.timePerFrame;
 				
 				// Next frame
-				this.currentAnimationFrame++;
-				if (this.currentAnimationFrame >= this.currentAnimation.length) {
-					this.currentAnimationFrame = 0;
-				}
-				
-				boolean flipX = this.isFlipX(),
-						flipY = this.isFlipY();
-				
-				// Adjust texture region
-				int frame = this.currentAnimation[this.currentAnimationFrame];
-				int fx = (frame % this.framesAcross) * this.frameWidth;
-				int fy = (int) Math.floor(frame / this.framesAcross) * this.frameHeight;
-				this.setRegion(fx, fy, this.frameWidth, this.frameHeight);
-				
-				this.flip(flipX, flipY);
+				this.nextFrame();
 			}
 		}
 		
@@ -75,6 +61,27 @@ public class AnimatedSprite extends Sprite {
 	public void play(String name) {
 		this.currentAnimation = this.animations.get(name);
 		this.currentAnimationFrame = 0;
+		
+		// Immediately set texture region
+		this.nextFrame();
+	}
+	
+	protected void nextFrame() {
+		this.currentAnimationFrame++;
+		if (this.currentAnimationFrame >= this.currentAnimation.length) {
+			this.currentAnimationFrame = 0;
+		}
+		
+		boolean flipX = this.isFlipX(),
+				flipY = this.isFlipY();
+		
+		// Adjust texture region
+		int frame = this.currentAnimation[this.currentAnimationFrame];
+		int fx = (frame % this.framesAcross) * this.frameWidth;
+		int fy = (int) Math.floor(frame / this.framesAcross) * this.frameHeight;
+		this.setRegion(fx, fy, this.frameWidth, this.frameHeight);
+		
+		this.flip(flipX, flipY);
 	}
 	
 	/**
