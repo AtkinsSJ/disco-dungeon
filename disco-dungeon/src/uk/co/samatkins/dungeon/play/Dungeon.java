@@ -420,6 +420,16 @@ public class Dungeon extends Entity {
 		if (this.tileExists(x, y)) {
 			this.visibleTiles[x][y] = true;
 			this.seenTiles[x][y] = true;
+			
+			// Set neighbouring wall tiles as seen too
+			for (int tx = x-1; tx <= x+1; tx++) {
+				for (int ty = y-1; ty <= y+1; ty++) {
+					if (this.isTileSolid(tx, ty)) {
+						this.visibleTiles[tx][ty] = true;
+						this.seenTiles[tx][ty] = true;
+					}
+				}
+			}
 		}
 	}
 
