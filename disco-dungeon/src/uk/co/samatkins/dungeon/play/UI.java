@@ -84,9 +84,10 @@ public class UI extends Entity {
 				tx = this.player.tileX - (tilesAcross/2) - 1 + i;
 				ty = this.player.tileY - (tilesUp/2) - 1 + j;
 				
-				if ( this.player.dungeon.tileHasBeenSeen(tx, ty) ) {
+				if ( this.player.dungeon.tileIsVisible(tx, ty) ) {
 					continue;
-					//this.shape.setColor(0, 0, 0, 0.5f);
+				} else if (this.player.dungeon.tileHasBeenSeen(tx, ty)) {
+					this.shape.setColor(0, 0, 0, 0.5f);
 				} else {
 					this.shape.setColor(0, 0, 0, 1);
 				}

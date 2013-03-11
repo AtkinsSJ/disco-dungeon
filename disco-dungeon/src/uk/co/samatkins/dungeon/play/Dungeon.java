@@ -23,6 +23,7 @@ public class Dungeon extends Entity {
 	private Tilemap tilemap;
 	
 	private boolean[][] seenTiles;
+	private boolean[][] visibleTiles;
 	
 	private ParticleEffect particles;
 	
@@ -60,6 +61,7 @@ public class Dungeon extends Entity {
 		this.random = new FileRNG(Gdx.files.internal(filename).read());
 		
 		this.seenTiles = new boolean[this.tilesX][this.tilesY];
+		this.visibleTiles = new boolean[this.tilesX][this.tilesY];
 		
 		// Create starting lists
 		int gridSize = 6,
@@ -398,6 +400,14 @@ public class Dungeon extends Entity {
 		return (x >= 0 && x < this.tilesX && y >= 0 && y < this.tilesY);
 	}
 	
+	public boolean tileIsVisible(int x, int y) {
+		if (this.tileExists(x, y)) {
+			return this.visibleTiles[x][y];
+		} else {
+			return false;
+		}
+	}
+	
 	public boolean tileHasBeenSeen(int x, int y) {
 		if (this.tileExists(x, y)) {
 			return this.seenTiles[x][y];
@@ -408,7 +418,15 @@ public class Dungeon extends Entity {
 	
 	public void setTileAsSeen(int x, int y) {
 		if (this.tileExists(x, y)) {
+			this.visibleTiles[x][y] = true;
 			this.seenTiles[x][y] = true;
 		}
+	}
+
+	/**
+	 * Sets all tiles as not currently visible
+	 */
+	public void clearVisibleTiles() {
+		this.visibleTiles = new boolean[this.tilesX][this.tilesY];
 	}
 }

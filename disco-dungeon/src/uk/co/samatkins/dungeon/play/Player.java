@@ -94,6 +94,8 @@ public class Player extends DungeonEntity {
 	}
 	
 	private void refreshFogOfWar() {
+		this.dungeon.clearVisibleTiles();
+		
 		int l = this.tileX - this.sightDistance;
 		int r = this.tileX + this.sightDistance;
 		int d = this.tileY - this.sightDistance;
