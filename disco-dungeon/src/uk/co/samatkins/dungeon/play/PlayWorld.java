@@ -1,7 +1,10 @@
 package uk.co.samatkins.dungeon.play;
 
+import java.io.File;
+
 import uk.co.samatkins.World;
 import uk.co.samatkins.dungeon.data.AssetManager;
+import uk.co.samatkins.dungeon.data.FileChooser;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -18,12 +21,20 @@ public class PlayWorld extends World {
 	public PlayWorld() {
 		super();
 		
+		FileChooser fc = FileChooser.getInstance();
+		File file = fc.getFile();
+		
+		if (file == null) {
+			Gdx.app.debug("APPLICATION", "User did not select a music file.");
+			Gdx.app.exit();
+		}
+		
 		AssetManager.getInstance().loadTheme("neon");
 		
 		this.dungeon = new Dungeon(100, 100);
 		this.add(this.dungeon);
 		
-		this.dungeon.buildDungeon("neon/Zabutom_-_Zeta_force_level_2.mp3");
+		this.dungeon.buildDungeon(file.getPath());//"neon/Zabutom_-_Zeta_force_level_2.mp3");
 		
 		this.player = this.dungeon.player;
 		this.add(player);
@@ -36,7 +47,7 @@ public class PlayWorld extends World {
 		this.ui.setPlayer(this.player);
 		this.add(this.ui);
 		
-		this.music = Gdx.audio.newMusic(Gdx.files.internal("neon/Zabutom_-_Zeta_force_level_2.mp3"));
+		this.music = Gdx.audio.newMusic(Gdx.files.absolute(file.getPath()));//Gdx.files.internal("neon/Zabutom_-_Zeta_force_level_2.mp3"));
 		this.music.setVolume(0.5f);
 		this.music.play();
 	}
