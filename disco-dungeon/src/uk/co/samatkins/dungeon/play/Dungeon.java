@@ -203,12 +203,24 @@ public class Dungeon extends Entity {
 		return this.tilemap.getSolid(x, y);
 	}
 	
+	public void setTileSolid(int x, int y, boolean solid) {
+		if (this.tileExists(x, y)) {
+			this.tilemap.setSolid(x, y, solid);
+		} else {
+			Gdx.app.error("Tile", "Doesn't exist! x,y: " + x + "," + y);
+		}
+	}
+	
+	private void placeEntity(int x, int y, DungeonEntity e) {
+		this.entities.add(e);
+		this.world.add(e);
+	}
+	
 	private void placeEnemy(int x, int y) {
 		Enemy e = Enemy.create(
 				this.assets.getEnemyData(this.random.getIntBetween(0, this.assets.getEnemyTypeCount()-1)),
 				this, x, y);
-		this.entities.add(e);
-		this.world.add(e);
+		this.placeEntity(x, y, e);
 	}
 	
 	private void placeWall(int x, int y) {
@@ -219,6 +231,11 @@ public class Dungeon extends Entity {
 	}
 	
 	private void placeFloor(int x, int y) {
+		// If there's a wall here, maybe place a door
+		if (tilemap.getSolid(x, y)) {
+			this.placeEntity(x, y, new Door(this, x, y));
+		}
+		
 		tilemap.setTile(x, y, 16);
 		tilemap.setSolid(x, y, false);
 	}

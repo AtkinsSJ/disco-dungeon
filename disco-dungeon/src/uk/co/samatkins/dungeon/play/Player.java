@@ -37,33 +37,25 @@ public class Player extends DungeonEntity {
 			DungeonEntity e;
 			if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 				e = this.dungeon.getEntityAt(this.tileX-1, this.tileY);
-				if (e != null) {
-					this.attack(e);
-				} else {
+				if (e == null || !e.interactWith(this)) {
 					this.moveLeft();
 				}
 				this.endTurn();
 			} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 				e = this.dungeon.getEntityAt(this.tileX+1, this.tileY);
-				if (e != null) {
-					this.attack(e);
-				} else {
+				if (e == null || !e.interactWith(this)) {
 					this.moveRight();
 				}
 				this.endTurn();
 			} else if (Gdx.input.isKeyPressed(Keys.UP)) {
 				e = this.dungeon.getEntityAt(this.tileX, this.tileY+1);
-				if (e != null) {
-					this.attack(e);
-				} else {
+				if (e == null || !e.interactWith(this)) {
 					this.moveUp();
 				}
 				this.endTurn();
 			} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
 				e = this.dungeon.getEntityAt(this.tileX, this.tileY-1);
-				if (e != null) {
-					this.attack(e);
-				} else {
+				if (e == null || !e.interactWith(this)) {
 					this.moveDown();
 				}
 				this.endTurn();
@@ -71,7 +63,7 @@ public class Player extends DungeonEntity {
 		}
 	}
 	
-	private void attack(DungeonEntity e) {
+	public void attack(DungeonEntity e) {
 		System.out.println("ATTACKING!");
 		e.takeDamage(this.attack);
 		
@@ -107,5 +99,11 @@ public class Player extends DungeonEntity {
 				}
 			}
 		}
+	}
+
+	@Override
+	public boolean interactWith(DungeonEntity user) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

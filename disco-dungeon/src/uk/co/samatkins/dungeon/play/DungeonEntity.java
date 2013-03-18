@@ -5,13 +5,11 @@ package uk.co.samatkins.dungeon.play;
 import uk.co.samatkins.Entity;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
-public class DungeonEntity extends Entity {
+public abstract class DungeonEntity extends Entity {
 	
 	protected Dungeon dungeon;
 	protected int tileX, tileY;
@@ -21,6 +19,7 @@ public class DungeonEntity extends Entity {
 	protected String name;
 	
 	protected boolean animating;
+	protected boolean solid;
 
 	public DungeonEntity(Dungeon dungeon, int x, int y) {
 		super();
@@ -33,6 +32,7 @@ public class DungeonEntity extends Entity {
 		this.setY(this.tileY * Dungeon.TILE_HEIGHT);
 		
 		this.animating = false;
+		this.solid = true;
 	}
 	
 	public String getName() {
@@ -55,8 +55,11 @@ public class DungeonEntity extends Entity {
 	
 	protected boolean moveBy(int across, int up) {
 		
-		if (dungeon.isTileSolid(this.tileX + across, this.tileY + up)
-			|| (dungeon.getEntityAt(this.tileX + across, this.tileY + up) != null)) {
+		if (dungeon.isTileSolid(this.tileX + across, this.tileY + up)) {
+			return false;
+		}
+		DungeonEntity e = dungeon.getEntityAt(this.tileX + across, this.tileY + up);
+		if (e != null && e.isSolid()) {
 			return false;
 		}
 		
@@ -215,5 +218,15 @@ public class DungeonEntity extends Entity {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Default interaction
+	 * @return Whether the interaction does anything.
+	 */
+	public abstract boolean interactWith(DungeonEntity user);
+	
+	public boolean isSolid() {
+		return this.solid;
 	}
 }

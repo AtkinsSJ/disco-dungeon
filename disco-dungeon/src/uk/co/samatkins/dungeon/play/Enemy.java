@@ -134,4 +134,14 @@ public class Enemy extends DungeonEntity {
 		e.takeDamage(this.attack);
 	}
 
+	@Override
+	public boolean interactWith(DungeonEntity user) {
+		if (user instanceof Player) {
+			((Player)user).attack(this);
+			return true;
+		}
+		
+		return false;
+	}
+
 }
