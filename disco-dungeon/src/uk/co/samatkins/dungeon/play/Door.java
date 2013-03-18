@@ -31,7 +31,7 @@ public class Door extends DungeonEntity {
 	}
 
 	@Override
-	public boolean interactWith(DungeonEntity user) {
+	public boolean beUsedBy(DungeonEntity user) {
 		if (this.open) {
 			//Door already open
 			Gdx.app.log("DOOR", "Door is opened! Should let player through!");

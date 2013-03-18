@@ -135,7 +135,7 @@ public class Enemy extends DungeonEntity {
 	}
 
 	@Override
-	public boolean interactWith(DungeonEntity user) {
+	public boolean beUsedBy(DungeonEntity user) {
 		if (user instanceof Player) {
 			((Player)user).attack(this);
 			return true;

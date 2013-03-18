@@ -204,11 +204,7 @@ public class Dungeon extends Entity {
 	}
 	
 	public void setTileSolid(int x, int y, boolean solid) {
-		if (this.tileExists(x, y)) {
-			this.tilemap.setSolid(x, y, solid);
-		} else {
-			Gdx.app.error("Tile", "Doesn't exist! x,y: " + x + "," + y);
-		}
+		this.tilemap.setSolid(x, y, solid);
 	}
 	
 	private void placeEntity(int x, int y, DungeonEntity e) {
@@ -234,10 +230,10 @@ public class Dungeon extends Entity {
 		// If there's a wall here, maybe place a door
 		if (tilemap.getSolid(x, y)) {
 			this.placeEntity(x, y, new Door(this, x, y));
+		} else {
+			tilemap.setTile(x, y, 16);
+			tilemap.setSolid(x, y, false);
 		}
-		
-		tilemap.setTile(x, y, 16);
-		tilemap.setSolid(x, y, false);
 	}
 	
 	private void buildRoom(int left, int top, int width, int height) {

@@ -224,7 +224,7 @@ public abstract class DungeonEntity extends Entity {
 	 * Default interaction
 	 * @return Whether the interaction does anything.
 	 */
-	public abstract boolean interactWith(DungeonEntity user);
+	public abstract boolean beUsedBy(DungeonEntity user);
 	
 	public boolean isSolid() {
 		return this.solid;
