@@ -1,0 +1,19 @@
+[
+	{
+		"name": "ghost",
+		"tileIDs": [0,1],
+		"hp": 5,
+		"attack": 2,
+		"traits": [
+			"CAUTIOUS"
+		]
+	},
+	{
+		"name": "rat",
+		"tileIDs": [62,63],
+		"hp": 5,
+		"attack": 1
+	}
+	
+	
+]

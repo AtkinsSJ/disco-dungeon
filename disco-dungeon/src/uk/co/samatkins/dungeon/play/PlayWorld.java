@@ -30,7 +30,7 @@ public class PlayWorld extends World {
 			return;
 		}
 		
-		AssetManager.getInstance().loadTheme("neon");
+		AssetManager.getInstance().loadTheme("dungeon");
 		
 		this.dungeon = new Dungeon(100, 100);
 		this.add(this.dungeon);
