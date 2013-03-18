@@ -65,9 +65,6 @@ public class Player extends DungeonEntity {
 	
 	public void attack(DungeonEntity e) {
 		e.takeDamage(this.attack);
-		
-		// TODO: Figure-out why this is necessary to stop double-movement bugs.
-		
 	}
 	
 	private void endTurn() {
@@ -104,5 +101,26 @@ public class Player extends DungeonEntity {
 	public boolean beUsedBy(DungeonEntity user) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	public void die() {
+		this.addAction(
+				Actions.parallel(
+					Actions.forever(Actions.rotateBy(360, 0.5f)),
+					Actions.sequence(
+						Actions.scaleTo(0f, 0f, 1f),
+						//Actions.removeActor(),
+						new Action() {
+							@Override
+							public boolean act(float delta) {
+								// TODO Auto-generated method stub
+								((PlayWorld)(((Player)actor).world)).lose();
+								return true;
+							}
+						}
+					)
+				)
+			);
 	}
 }

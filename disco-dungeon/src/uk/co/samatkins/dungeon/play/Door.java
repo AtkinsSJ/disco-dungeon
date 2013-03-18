@@ -53,8 +53,8 @@ public class Door extends DungeonEntity {
 								Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
 		} else {
 			this.sprite.setRegion((int) (closedCoords.x * Dungeon.TILE_WIDTH),
-					(int) (closedCoords.y * Dungeon.TILE_HEIGHT),
-					Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
+								(int) (closedCoords.y * Dungeon.TILE_HEIGHT),
+								Dungeon.TILE_WIDTH, Dungeon.TILE_HEIGHT);
 		}
 		
 		this.dungeon.setTileSolid(this.tileX, this.tileY, !this.open);

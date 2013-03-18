@@ -3,6 +3,7 @@ package uk.co.samatkins.dungeon.play;
 import java.io.File;
 
 import uk.co.samatkins.World;
+import uk.co.samatkins.dungeon.Game;
 import uk.co.samatkins.dungeon.data.AssetManager;
 import uk.co.samatkins.dungeon.data.FileChooser;
 
@@ -18,8 +19,8 @@ public class PlayWorld extends World {
 	
 	private Music music;
 
-	public PlayWorld() {
-		super();
+	public PlayWorld(Game game) {
+		super(game);
 		
 		FileChooser fc = FileChooser.getInstance();
 		File file = fc.getFile();
@@ -67,5 +68,10 @@ public class PlayWorld extends World {
 	public void dispose() {
 		super.dispose();
 		this.music.dispose();
+	}
+
+	public void lose() {
+		// TODO Auto-generated method stub
+		
 	}
 }

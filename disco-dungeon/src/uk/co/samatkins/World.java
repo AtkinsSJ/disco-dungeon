@@ -1,5 +1,7 @@
 package uk.co.samatkins;
 
+import uk.co.samatkins.dungeon.Game;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -8,10 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public abstract class World extends Stage implements Screen {
 	
-	public World() {
+	public Game game;
+	
+	public World(Game game) {
 		//float zoom = 0.5f;
 		super(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
 		Gdx.input.setInputProcessor(this);
+		this.game = game;
 		//((OrthographicCamera)this.stage.getCamera()).zoom = zoom;
 	}
 	
