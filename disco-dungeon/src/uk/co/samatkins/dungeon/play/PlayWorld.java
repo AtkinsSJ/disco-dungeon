@@ -27,6 +27,7 @@ public class PlayWorld extends World {
 		if (file == null) {
 			Gdx.app.debug("APPLICATION", "User did not select a music file.");
 			Gdx.app.exit();
+			return;
 		}
 		
 		AssetManager.getInstance().loadTheme("neon");
