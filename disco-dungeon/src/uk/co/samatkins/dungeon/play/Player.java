@@ -64,23 +64,22 @@ public class Player extends DungeonEntity {
 	}
 	
 	public void attack(DungeonEntity e) {
-		System.out.println("ATTACKING!");
 		e.takeDamage(this.attack);
 		
 		// TODO: Figure-out why this is necessary to stop double-movement bugs.
+		
+	}
+	
+	private void endTurn() {
 		this.animating = true;
 		this.addAction(
 			Actions.delay(0.2f, new Action() {
 				public boolean act(float delta) {
 					((DungeonEntity)actor).animating = false;
-					System.out.println("ATTACK over");
 					return true;
 				}
 			})
 		);
-	}
-	
-	private void endTurn() {
 		this.dungeon.endPlayerTurn();
 		this.refreshFogOfWar();
 	}
