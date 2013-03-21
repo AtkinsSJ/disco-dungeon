@@ -15,7 +15,6 @@ public abstract class World extends Stage implements Screen {
 	public World(Game game) {
 		//float zoom = 0.5f;
 		super(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
-		Gdx.input.setInputProcessor(this);
 		this.game = game;
 		//((OrthographicCamera)this.stage.getCamera()).zoom = zoom;
 	}
@@ -43,6 +42,7 @@ public abstract class World extends Stage implements Screen {
 
 	@Override
 	public void show() {
+		Gdx.input.setInputProcessor(this);
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class Entity extends Actor {
 	
-	protected World world;
+	public World world;
 	protected Sprite sprite;
 
 	public Entity() {
