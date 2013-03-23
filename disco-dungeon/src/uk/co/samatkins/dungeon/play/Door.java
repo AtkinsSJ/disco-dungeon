@@ -59,5 +59,10 @@ public class Door extends DungeonEntity {
 		
 		this.dungeon.setTileSolid(this.tileX, this.tileY, !this.open);
 	}
+	
+	@Override
+	public boolean visibleToPlayer() {
+		return this.dungeon.tileHasBeenSeen(this.tileX, this.tileY);
+	}
 
 }
