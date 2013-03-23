@@ -229,11 +229,44 @@ public class Dungeon extends Entity {
 	private void placeFloor(int x, int y) {
 		// If there's a wall here, maybe place a door
 		if (tilemap.getSolid(x, y)) {
-			this.placeEntity(x, y, new Door(this, x, y));
+			
+			// if there's a door here already do nothing
+			if (this.getEntityAt(x, y) instanceof Door) return;
+			
+			// Don't ever have 2 doors together
+			if ( (this.getEntityAt(x-1, y) instanceof Door)
+				|| (this.getEntityAt(x+1, y) instanceof Door)
+				|| (this.getEntityAt(x, y-1) instanceof Door)
+				|| (this.getEntityAt(x, y+1) instanceof Door) ){
+
+				this._placeFloor(x, y);
+				return;
+			}
+			
+			// Require enough solid surrounding tiles to make a door.
+			int surroundingWalls = 0;
+			if (tilemap.getSolid(x+1, y)) surroundingWalls++;
+			if (tilemap.getSolid(x-1, y)) surroundingWalls++;
+			if (tilemap.getSolid(x, y+1)) surroundingWalls++;
+			if (tilemap.getSolid(x, y-1)) surroundingWalls++;
+			
+			if (surroundingWalls == 2) {
+				this.placeDoor(x, y);
+			} else {
+				this._placeFloor(x, y);
+			}
 		} else {
+			this._placeFloor(x, y);
+		}
+	}
+	
+	private void _placeFloor(int x, int y) {
 			tilemap.setTile(x, y, 16);
 			tilemap.setSolid(x, y, false);
-		}
+	}
+	
+	private void placeDoor(int x, int y) {
+		this.placeEntity(x, y, new Door(this, x, y));
 	}
 	
 	private void buildRoom(int left, int top, int width, int height) {
@@ -383,7 +416,7 @@ public class Dungeon extends Entity {
 	 * @return
 	 */
 	public DungeonEntity getEntityAt(int x, int y) {
-		if ( (this.player.tileX == x) && (this.player.tileY == y) ) {
+		if ( (this.player != null) &&(this.player.tileX == x) && (this.player.tileY == y) ) {
 			return this.player;
 		}
 		

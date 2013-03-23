@@ -13,7 +13,7 @@ public class Overlay extends Entity {
 	
 	public Overlay() {
 		this.shapeRenderer = new ShapeRenderer();
-		this.setColor(0, 0, 0, 0);
+		this.setColor(0, 1, 0, 0.5f);
 		
 		this.setWidth(Gdx.graphics.getWidth());
 		this.setHeight(Gdx.graphics.getHeight());

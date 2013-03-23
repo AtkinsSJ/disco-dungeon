@@ -59,7 +59,5 @@ public class Door extends DungeonEntity {
 		
 		this.dungeon.setTileSolid(this.tileX, this.tileY, !this.open);
 	}
-	
-	
 
 }
