@@ -1,6 +1,7 @@
 package uk.co.samatkins.dungeon.play;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import uk.co.samatkins.Entity;
@@ -12,6 +13,8 @@ import uk.co.samatkins.dungeon.play.dungeon.Room;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 
 public class Dungeon extends Entity {
 	
@@ -35,7 +38,7 @@ public class Dungeon extends Entity {
 	public Player player;
 	private boolean isPlayersTurn;
 	
-	private List<DungeonEntity> entities;
+	private ArrayList<DungeonEntity> entities;
 	private DungeonEntity currentEntity;
 	private int currentEntityIndex = 0;
 
@@ -186,6 +189,27 @@ public class Dungeon extends Entity {
 				}
 			}
 		}
+		
+		// Clean-up any needless doors
+		Array<Actor> toRemove = new Array<Actor>();
+		for (DungeonEntity e : entities) {
+			if (!(e instanceof Door) ) continue;
+			
+			int surroundingWalls = 0;
+			if (tilemap.getSolid(e.tileX+1, e.tileY)) surroundingWalls++;
+			if (tilemap.getSolid(e.tileX-1, e.tileY)) surroundingWalls++;
+			if (tilemap.getSolid(e.tileX, e.tileY+1)) surroundingWalls++;
+			if (tilemap.getSolid(e.tileX, e.tileY-1)) surroundingWalls++;
+			
+			if (surroundingWalls != 2) {
+				toRemove.add(e);
+				this._placeFloor(e.tileX, e.tileY);
+			}
+		}
+		for (Actor actor: toRemove) {
+			this.entities.remove((DungeonEntity) actor);
+		}
+		this.world.getActors().removeAll(toRemove, true);
 		
 		// Generate player
 		this.player = new Player(this, this.startRoom.getCentreX(), this.startRoom.getCentreY());
