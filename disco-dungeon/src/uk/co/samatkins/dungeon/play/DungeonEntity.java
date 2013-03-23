@@ -2,7 +2,10 @@ package uk.co.samatkins.dungeon.play;
 
 
 
+import java.util.ArrayList;
+
 import uk.co.samatkins.Entity;
+import uk.co.samatkins.dungeon.play.effects.StatusEffect;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +23,8 @@ public abstract class DungeonEntity extends Entity {
 	
 	protected boolean animating;
 	protected boolean solid;
+	
+	protected ArrayList<StatusEffect> effects;
 
 	public DungeonEntity(Dungeon dungeon, int x, int y) {
 		super();
@@ -33,10 +38,26 @@ public abstract class DungeonEntity extends Entity {
 		
 		this.animating = false;
 		this.solid = true;
+		
+		this.effects = new ArrayList<StatusEffect>();
 	}
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	public void addEffect(StatusEffect effect) {
+		// Check if we already have this effect
+		for (StatusEffect e: this.effects) {
+			if (e.getClass().isInstance(effect)) {
+				// We already have this effect! Add the time to it instead.
+				Gdx.app.log("Effect", e + " is the same as " + effect);
+				e.setTurnsRemaining(effect.getTurnsRemaining());
+				return;
+			}
+		}
+		
+		this.effects.add(effect);
 	}
 	
 	@Override
@@ -105,7 +126,17 @@ public abstract class DungeonEntity extends Entity {
 		return this.animating;
 	}
 	
-	public void takeTurn() { }
+	public void takeTurn() {
+		ArrayList<StatusEffect> remove = new ArrayList<StatusEffect>();
+		for (StatusEffect e: this.effects) {
+			e.atEndOfTurn(this);
+			if (e.getTurnsRemaining() <= 0) {
+				remove.add(e);
+			}
+		}
+		this.effects.removeAll(remove);
+		
+	}
 
 	/**
 	 * Try to move one tile closer to the given destination.
@@ -228,5 +259,15 @@ public abstract class DungeonEntity extends Entity {
 	
 	public boolean isSolid() {
 		return this.solid;
+	}
+
+	public void heal(int healAmount) {
+		if (healAmount <= 0) {
+			Gdx.app.error("Heal", "For some reason, trying to heal less than 1 hp. Ignoring.");
+			return;
+		}
+		
+		this.hp += healAmount;
+		this.hp = Math.min(this.hp, this.maxHp);
 	}
 }

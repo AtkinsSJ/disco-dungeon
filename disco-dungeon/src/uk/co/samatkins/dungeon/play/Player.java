@@ -2,6 +2,8 @@ package uk.co.samatkins.dungeon.play;
 
 import uk.co.samatkins.AnimatedSprite;
 import uk.co.samatkins.dungeon.data.AssetManager;
+import uk.co.samatkins.dungeon.play.effects.Poison;
+import uk.co.samatkins.dungeon.play.effects.RecoverHealth;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -59,6 +61,9 @@ public class Player extends DungeonEntity {
 					this.moveDown();
 				}
 				this.endTurn();
+			} else if (Gdx.input.isKeyPressed(Keys.H)) {
+				this.addEffect(new RecoverHealth(5));
+				this.endTurn();
 			}
 		}
 	}
@@ -79,6 +84,7 @@ public class Player extends DungeonEntity {
 		);
 		this.dungeon.endPlayerTurn();
 		this.refreshFogOfWar();
+		super.takeTurn();
 	}
 	
 	private void refreshFogOfWar() {
@@ -99,7 +105,6 @@ public class Player extends DungeonEntity {
 
 	@Override
 	public boolean beUsedBy(DungeonEntity user) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -110,11 +115,9 @@ public class Player extends DungeonEntity {
 					Actions.forever(Actions.rotateBy(360, 0.5f)),
 					Actions.sequence(
 						Actions.scaleTo(0f, 0f, 1f),
-						//Actions.removeActor(),
 						new Action() {
 							@Override
 							public boolean act(float delta) {
-								// TODO Auto-generated method stub
 								((PlayWorld)(((Player)actor).world)).lose();
 								return true;
 							}

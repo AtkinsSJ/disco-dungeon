@@ -128,6 +128,8 @@ public class Enemy extends DungeonEntity {
 		} else {
 			this.state = this.state.run(this);
 		}
+		
+		super.takeTurn();
 	}
 	
 	private void attack(DungeonEntity e) {
